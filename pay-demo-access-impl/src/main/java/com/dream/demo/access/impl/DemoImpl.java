@@ -1,7 +1,8 @@
-package com.dream.demo;
+package com.dream.demo.access.impl;
 
 import com.dream.demo.access.Demo;
 import lombok.extern.slf4j.Slf4j;
+
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 

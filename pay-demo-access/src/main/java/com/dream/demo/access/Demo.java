@@ -1,4 +1,4 @@
-package com.dream.demo;
+package com.dream.demo.access;
 
 /**
  * demo

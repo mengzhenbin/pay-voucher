@@ -13,6 +13,7 @@
         <module>pay-demo-deploy</module>
         <module>pay-demo-service</module>
         <module>pay-demo-dal</module>
+        <module>pay-demo-access-impl</module>
     </modules>
 
     <properties>

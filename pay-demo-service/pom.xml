@@ -25,13 +25,12 @@
 
         <dependency>
             <groupId>com.youzan.platform</groupId>
-            <artifactId>nova-datasource</artifactId>
+            <artifactId>bootstrap</artifactId>
         </dependency>
         <dependency>
             <groupId>com.youzan.platform</groupId>
-            <artifactId>bootstrap</artifactId>
+            <artifactId>nova-datasource</artifactId>
         </dependency>
-
         <dependency>
             <groupId>com.youzan.platform</groupId>
             <artifactId>redisclient</artifactId>

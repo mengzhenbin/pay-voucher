@@ -14,12 +14,12 @@
     <dependencies>
         <dependency>
             <groupId>com.dream</groupId>
-            <artifactId>pay-demo-service</artifactId>
+            <artifactId>pay-demo-access-impl</artifactId>
             <version>${project.parent.version}</version>
         </dependency>
         <dependency>
             <groupId>com.dream</groupId>
-            <artifactId>pay-demo-access-impl</artifactId>
+            <artifactId>pay-demo-service</artifactId>
             <version>${project.parent.version}</version>
         </dependency>
         <dependency>

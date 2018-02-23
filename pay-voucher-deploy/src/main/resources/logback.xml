@@ -1,0 +1,231 @@
+<configuration scan="true" scanPeriod=" 5 seconds" debug="false">
+    <jmxConfigurator/>
+
+    <property name="LOG_PATH" value="${logger.path}"/>
+
+    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] [%X{bizParam}] %-5level %logger{56} - %msg%n
+            </pattern>
+        </encoder>
+    </appender>
+
+    <!--错误日志统一打到一个地方-->
+    <appender name="ERROR_APPENDER" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <File>${LOG_PATH}/error.log</File>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <!-- rollover daily -->
+            <fileNamePattern>${LOG_PATH}/%d{yyyy-MM-dd}/error-%d{yyyy-MM-dd}-%i.log.gz
+            </fileNamePattern>
+            <timeBasedFileNamingAndTriggeringPolicy
+                    class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+                <!-- or whenever the file size reaches 100MB -->
+                <maxFileSize>100MB</maxFileSize>
+            </timeBasedFileNamingAndTriggeringPolicy>
+            <maxHistory>10</maxHistory>
+        </rollingPolicy>
+        <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+            <level>ERROR</level>
+        </filter>
+        <encoder>
+            <pattern>
+                %d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] [%X{bizParam}] %-5level %logger{56} - %msg%n
+            </pattern>
+        </encoder>
+    </appender>
+
+    <appender name="BUSINESS" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <File>${LOG_PATH}/voucher.log</File>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <!-- rollover daily -->
+            <fileNamePattern>${LOG_PATH}/%d{yyyy-MM-dd}/business-%d{yyyy-MM-dd}-%i.log.gz
+            </fileNamePattern>
+            <timeBasedFileNamingAndTriggeringPolicy
+                    class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+                <!-- or whenever the file size reaches 100MB -->
+                <maxFileSize>100MB</maxFileSize>
+            </timeBasedFileNamingAndTriggeringPolicy>
+            <maxHistory>10</maxHistory>
+        </rollingPolicy>
+        <encoder>
+            <pattern>
+                %d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] [%X{bizParam}] %-5level %logger{56} - %msg%n
+            </pattern>
+        </encoder>
+    </appender>
+
+    <appender name="DUBBO" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <File>${LOG_PATH}/dubbo.log</File>
+        <rollingPolicy
+                class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <!-- rollover daily -->
+            <fileNamePattern>${LOG_PATH}/%d{yyyy-MM-dd}/dubbo-%d{yyyy-MM-dd}-%i.log.gz
+            </fileNamePattern>
+            <timeBasedFileNamingAndTriggeringPolicy
+                    class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+                <!-- or whenever the file size reaches 100MB -->
+                <maxFileSize>100MB</maxFileSize>
+            </timeBasedFileNamingAndTriggeringPolicy>
+            <maxHistory>10</maxHistory>
+        </rollingPolicy>
+        <encoder>
+            <pattern>
+                %d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] [%X{bizParam}] %-5level %logger{56} - %msg%n
+            </pattern>
+        </encoder>
+    </appender>
+
+    <appender name="SQL" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <File>${LOG_PATH}/sql.log</File>
+        <rollingPolicy
+                class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <!-- rollover daily -->
+            <fileNamePattern>${LOG_PATH}/%d{yyyy-MM-dd}/sql-%d{yyyy-MM-dd}-%i.log.gz
+            </fileNamePattern>
+            <timeBasedFileNamingAndTriggeringPolicy
+                    class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+                <!-- or whenever the file size reaches 100MB -->
+                <maxFileSize>100MB</maxFileSize>
+            </timeBasedFileNamingAndTriggeringPolicy>
+            <maxHistory>10</maxHistory>
+        </rollingPolicy>
+        <encoder>
+            <pattern>
+                %d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] [%X{bizParam}] %-5level %logger{56} - %msg%n
+            </pattern>
+        </encoder>
+    </appender>
+
+    <appender name="REQUEST" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <File>${LOG_PATH}/request.log</File>
+        <rollingPolicy
+                class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <!-- rollover daily -->
+            <fileNamePattern>${LOG_PATH}/%d{yyyy-MM-dd}/request-%d{yyyy-MM-dd}-%i.log.gz
+            </fileNamePattern>
+            <timeBasedFileNamingAndTriggeringPolicy
+                    class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+                <!-- or whenever the file size reaches 100MB -->
+                <maxFileSize>100MB</maxFileSize>
+            </timeBasedFileNamingAndTriggeringPolicy>
+            <maxHistory>10</maxHistory>
+        </rollingPolicy>
+        <encoder>
+            <pattern>
+                %d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] [%X{bizParam}] %-5level %logger{56} - %msg%n
+            </pattern>
+        </encoder>
+    </appender>
+
+    <appender name="ROOT" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <File>${LOG_PATH}/root.log</File>
+        <rollingPolicy
+                class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <!-- rollover daily -->
+            <fileNamePattern>${LOG_PATH}/%d{yyyy-MM-dd}/root-%d{yyyy-MM-dd}-%i.log.gz
+            </fileNamePattern>
+            <timeBasedFileNamingAndTriggeringPolicy
+                    class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+                <!-- or whenever the file size reaches 100MB -->
+                <maxFileSize>100MB</maxFileSize>
+            </timeBasedFileNamingAndTriggeringPolicy>
+            <maxHistory>10</maxHistory>
+        </rollingPolicy>
+        <encoder>
+            <pattern>
+                %d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] [%X{bizParam}] %-5level %logger{56} - %msg%n
+            </pattern>
+        </encoder>
+    </appender>
+    <!-- 系统自身日志 -->
+    <!-- api-impl层日志 -->
+    <appender name="VOUCHER_API_IMPL" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <File>${LOG_PATH}/voucher-api-impl.log</File>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <!-- rollover daily -->
+            <fileNamePattern>${LOG_PATH}/%d{yyyy-MM-dd}/voucher-api-impl-%d{yyyy-MM-dd}-%i.log.gz
+            </fileNamePattern>
+            <timeBasedFileNamingAndTriggeringPolicy
+                    class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+                <!-- or whenever the file size reaches 100MB -->
+                <maxFileSize>100MB</maxFileSize>
+            </timeBasedFileNamingAndTriggeringPolicy>
+            <maxHistory>10</maxHistory>
+        </rollingPolicy>
+        <encoder>
+            <pattern>
+                %d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] [%X{bizParam}] %-5level %logger{56} - %msg%n
+            </pattern>
+        </encoder>
+    </appender>
+
+    <!-- dao层日志 -->
+    <appender name="VOUCHER_DAO" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <File>${LOG_PATH}/voucher-dao.log</File>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <!-- rollover daily -->
+            <fileNamePattern>${LOG_PATH}/%d{yyyy-MM-dd}/voucher-dal-%d{yyyy-MM-dd}-%i.log.gz
+            </fileNamePattern>
+            <timeBasedFileNamingAndTriggeringPolicy
+                    class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+                <!-- or whenever the file size reaches 100MB -->
+                <maxFileSize>100MB</maxFileSize>
+            </timeBasedFileNamingAndTriggeringPolicy>
+            <maxHistory>10</maxHistory>
+        </rollingPolicy>
+        <encoder>
+            <pattern>
+                %d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] [%X{bizParam}] %-5level %logger{56} - %msg%n
+            </pattern>
+        </encoder>
+    </appender>
+
+    <logger name="com.dream.pay.voucher" additivity="false">
+        <level value="INFO"/>
+        <appender-ref ref="BUSINESS"/>
+        <appender-ref ref="ERROR_APPENDER"/>
+        <appender-ref ref="ROOT"/>
+    </logger>
+
+    <logger name="com.alibaba.dubbo" additivity="false">
+        <level value="INFO"/>
+        <appender-ref ref="DUBBO"/>
+        <appender-ref ref="ERROR_APPENDER"/>
+        <appender-ref ref="ROOT"/>
+    </logger>
+
+    <logger name="druid.sql.Statement" additivity="false">
+        <level value="DEBUG"/>
+        <appender-ref ref="SQL"/>
+        <appender-ref ref="ERROR_APPENDER"/>
+        <appender-ref ref="ROOT"/>
+    </logger>
+
+    <logger name="com.youzan.platform.bootstrap.rest.extension.RequestHandler" additivity="false">
+        <level value="INFO"/>
+        <appender-ref ref="REQUEST"/>
+        <appender-ref ref="ERROR_APPENDER"/>
+        <appender-ref ref="ROOT"/>
+    </logger>
+
+    <logger name="com.dream.pay.voucher" additivity="false">
+        <level value="INFO"/>
+        <appender-ref ref="TRACK"/>
+        <appender-ref ref="VOUCHER_API_IMPL"/>
+        <appender-ref ref="ERROR_APPENDER"/>
+        <appender-ref ref="ROOT"/>
+    </logger>
+
+    <logger name="com.dream.pay.voucher" additivity="false">
+        <level value="DEBUG"/>
+        <appender-ref ref="TRACK"/>
+        <appender-ref ref="VOUCHER_DAO"/>
+        <appender-ref ref="ERROR_APPENDER"/>
+        <appender-ref ref="ROOT"/>
+    </logger>
+
+    <root level="DEBUG">
+        <appender-ref ref="ERROR_APPENDER"/>
+        <appender-ref ref="ROOT"/>
+    </root>
+</configuration>

@@ -4,16 +4,16 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>com.dream</groupId>
-    <artifactId>pay-demo</artifactId>
+    <groupId>com.dream.pay</groupId>
+    <artifactId>pay-voucher</artifactId>
     <packaging>pom</packaging>
     <version>1.0-SNAPSHOT</version>
     <modules>
-        <module>pay-demo-access</module>
-        <module>pay-demo-deploy</module>
-        <module>pay-demo-service</module>
-        <module>pay-demo-dal</module>
-        <module>pay-demo-access-impl</module>
+        <module>pay-voucher-access</module>
+        <module>pay-voucher-deploy</module>
+        <module>pay-voucher-service</module>
+        <module>pay-voucher-dal</module>
+        <module>pay-voucher-access-impl</module>
     </modules>
 
     <properties>

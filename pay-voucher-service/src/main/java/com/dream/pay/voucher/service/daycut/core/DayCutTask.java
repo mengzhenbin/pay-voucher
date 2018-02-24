@@ -11,9 +11,9 @@ public interface DayCutTask {
     /**
      * 日切任务执行
      *
-     * @param accountingDate 日切日
-     * @param isRetry        是否重试
+     * @param voucherDay 会计日
+     * @param isRetry    是否重试
      */
-    void execute(String accountingDate, boolean isRetry);
+    void execute(String voucherDay, boolean isRetry);
 
 }

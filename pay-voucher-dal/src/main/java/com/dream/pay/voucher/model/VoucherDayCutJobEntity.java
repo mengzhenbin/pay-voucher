@@ -13,7 +13,7 @@ import java.util.Date;
 public class VoucherDayCutJobEntity {
     private Long id;
 
-    private String accountingDate;
+    private String voucherDay;
 
     private Integer taskId;
 

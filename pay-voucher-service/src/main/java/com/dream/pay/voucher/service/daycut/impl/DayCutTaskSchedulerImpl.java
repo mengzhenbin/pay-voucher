@@ -24,14 +24,14 @@ public class DayCutTaskSchedulerImpl implements DayCutTaskScheduler {
     /**
      * 遍历按顺序执行所有任务
      *
-     * @param accountingDate
+     * @param voucherDay 当前会计日
      */
-    public void run(String accountingDate) {
+    public void run(String voucherDay) {
 
         for (DayCutTaskList dayCutTaskList : DayCutTaskList.values()) {
             DayCutTask dayCutTask = dayCutTaskFactoryImpl.getTask(dayCutTaskList.getId());
             if (null != dayCutTask) {
-                dayCutTask.execute(accountingDate, false);
+                dayCutTask.execute(voucherDay, false);
             } else {
                 log.error("[{}]未找到相应的处理类，未做处理", dayCutTaskList.getName());
             }

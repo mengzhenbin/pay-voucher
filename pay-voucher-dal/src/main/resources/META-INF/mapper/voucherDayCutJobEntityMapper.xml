@@ -4,7 +4,7 @@
     <resultMap id="BaseResultMap" type="com.dream.pay.voucher.model.VoucherDayCutJobEntity">
         <constructor>
             <idArg column="id" jdbcType="BIGINT" javaType="java.lang.Long"/>
-            <arg column="accounting_date" jdbcType="VARCHAR" javaType="java.lang.String"/>
+            <arg column="voucher_day" jdbcType="VARCHAR" javaType="java.lang.String"/>
             <arg column="task_id" jdbcType="INTEGER" javaType="java.lang.Integer"/>
             <arg column="task_execute_state" jdbcType="INTEGER" javaType="java.lang.Integer"/>
             <arg column="task_execute_opertor" jdbcType="VARCHAR" javaType="java.lang.String"/>
@@ -16,7 +16,7 @@
         </constructor>
     </resultMap>
     <sql id="Base_Column_List">
-        id, accounting_date, task_id, task_execute_state, task_execute_opertor, task_execute_desc,
+        id, voucher_day, task_id, task_execute_state, task_execute_opertor, task_execute_desc,
         start_time, end_time, create_time, update_time
     </sql>
     <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long">
@@ -30,11 +30,11 @@
         where id = #{id,jdbcType=BIGINT}
     </delete>
     <insert id="insert" parameterType="com.dream.pay.voucher.model.VoucherDayCutJobEntity">
-        insert into voucher_day_cut_job (id, accounting_date, task_id,
+        insert into voucher_day_cut_job (id, voucher_day, task_id,
         task_execute_state, task_execute_opertor, task_execute_desc,
         start_time, end_time, create_time,
         update_time)
-        values (#{id,jdbcType=BIGINT}, #{accountingDate,jdbcType=VARCHAR}, #{taskId,jdbcType=INTEGER},
+        values (#{id,jdbcType=BIGINT}, #{voucherDay,jdbcType=VARCHAR}, #{taskId,jdbcType=INTEGER},
         #{taskExecuteState,jdbcType=INTEGER}, #{taskExecuteOpertor,jdbcType=VARCHAR},
         #{taskExecuteDesc,jdbcType=VARCHAR},
         #{startTime,jdbcType=TIMESTAMP}, #{endTime,jdbcType=TIMESTAMP}, #{createTime,jdbcType=TIMESTAMP},
@@ -46,8 +46,8 @@
             <if test="id != null">
                 id,
             </if>
-            <if test="accountingDate != null">
-                accounting_date,
+            <if test="voucherDay != null">
+                voucher_day,
             </if>
             <if test="taskId != null">
                 task_id,
@@ -78,8 +78,8 @@
             <if test="id != null">
                 #{id,jdbcType=BIGINT},
             </if>
-            <if test="accountingDate != null">
-                #{accountingDate,jdbcType=VARCHAR},
+            <if test="voucherDay != null">
+                #{voucherDay,jdbcType=VARCHAR},
             </if>
             <if test="taskId != null">
                 #{taskId,jdbcType=INTEGER},
@@ -110,8 +110,8 @@
     <update id="updateByPrimaryKeySelective" parameterType="com.dream.pay.voucher.model.VoucherDayCutJobEntity">
         update voucher_day_cut_job
         <set>
-            <if test="accountingDate != null">
-                accounting_date = #{accountingDate,jdbcType=VARCHAR},
+            <if test="voucherDay != null">
+                voucher_day = #{voucherDay,jdbcType=VARCHAR},
             </if>
             <if test="taskId != null">
                 task_id = #{taskId,jdbcType=INTEGER},
@@ -142,7 +142,7 @@
     </update>
     <update id="updateByPrimaryKey" parameterType="com.dream.pay.voucher.model.VoucherDayCutJobEntity">
         update voucher_day_cut_job
-        set accounting_date = #{accountingDate,jdbcType=VARCHAR},
+        set voucher_day = #{voucherDay,jdbcType=VARCHAR},
         task_id = #{taskId,jdbcType=INTEGER},
         task_execute_state = #{taskExecuteState,jdbcType=INTEGER},
         task_execute_opertor = #{taskExecuteOpertor,jdbcType=VARCHAR},
@@ -158,7 +158,7 @@
         select
         <include refid="Base_Column_List"/>
         from voucher_day_cut_job
-        where `ACCOUNTING_DATE` =#{accountingDate} and TASK_ID = #{taskId}
+        where `VOUCHER_DAY` =#{voucherDay} and TASK_ID = #{taskId}
     </select>
 
     <update id="UpdateDayCutState" parameterType="map">
@@ -169,6 +169,6 @@
             `END_TIME` = now(),
             `UPDATE_TIME` = now()
         </set>
-        where `ACCOUNTING_DATE` =#{accountingDate} and TASK_ID = #{taskId}
+        where `VOUCHER_DAY` =#{voucherDay} and TASK_ID = #{taskId}
     </update>
 </mapper>

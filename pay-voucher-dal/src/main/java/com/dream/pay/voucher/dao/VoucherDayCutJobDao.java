@@ -20,11 +20,11 @@ public interface VoucherDayCutJobDao {
     /**
      * 根据会计日期和任务ID获取VoucherDayCutJobEntity
      *
-     * @param accountingDate 会计日期
-     * @param taskId         任务ID
+     * @param voucherDay 当前会计日
+     * @param taskId     任务ID
      * @return VoucherDayCutJobEntity
      */
-    public VoucherDayCutJobEntity select(@Param("accountingDate") String accountingDate,
+    public VoucherDayCutJobEntity select(@Param("voucherDay") String voucherDay,
                                          @Param("taskId") int taskId);
 
     /**
@@ -32,7 +32,7 @@ public interface VoucherDayCutJobDao {
      *
      * @return
      */
-    public int UpdateDayCutState(@Param("accountingDate") String accountingDate,
+    public int UpdateDayCutState(@Param("voucherDay") String voucherDay,
                                  @Param("taskId") int taskId,
                                  @Param("taskExecuteDesc") String desc,
                                  @Param("taskExecuteState") int state);

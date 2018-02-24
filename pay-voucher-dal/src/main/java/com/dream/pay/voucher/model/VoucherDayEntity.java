@@ -8,10 +8,11 @@ import lombok.*;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class VoucherAccountingDateEntity {
+public class VoucherDayEntity {
 
-    private String lastAccountingDate;
+    private String lastVoucherDay;
 
-    private String accountingDate;
+    private String currentVoucherDay;
+
 
 }

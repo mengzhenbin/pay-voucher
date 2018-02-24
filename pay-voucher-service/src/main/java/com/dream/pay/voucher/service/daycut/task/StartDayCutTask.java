@@ -29,9 +29,9 @@ public class StartDayCutTask implements DayCutTask {
      */
     private static final String TASK_NAME = DayCutTaskList.START_DAY_CUT_TASK.getName();
 
-    public void execute(String accountingDate, boolean isRetry) {
+    public void execute(String voucherDay, boolean isRetry) {
         dayCutTaskController.execute(() -> {
             return "日切启动任务-执行成功";
-        }, accountingDate, TASK_ID, TASK_NAME, isRetry);
+        }, voucherDay, TASK_ID, TASK_NAME, isRetry);
     }
 }

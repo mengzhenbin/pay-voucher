@@ -3,7 +3,7 @@ package com.dream.pay.voucher.service.daycut.task;
 
 import com.dream.pay.voucher.common.AccountingDateUtil;
 import com.dream.pay.voucher.common.DayCutTaskList;
-import com.dream.pay.voucher.dao.VoucherAccountingDateDao;
+import com.dream.pay.voucher.dao.VoucherDayDao;
 import com.dream.pay.voucher.service.daycut.core.DayCutTask;
 import com.dream.pay.voucher.service.daycut.core.DayCutTaskController;
 import lombok.extern.slf4j.Slf4j;
@@ -21,7 +21,7 @@ import javax.annotation.Resource;
 @Component
 public class EndDayCutTask implements DayCutTask {
     @Resource
-    VoucherAccountingDateDao voucherAccountingDateDao;
+    VoucherDayDao voucherAccountingDateDao;
     @Resource
     DayCutTaskController dayCutTaskController;
 
@@ -34,11 +34,11 @@ public class EndDayCutTask implements DayCutTask {
      */
     private static final String TASK_NAME = DayCutTaskList.END_DAY_CUT_TASK.getName();
 
-    public void execute(String accountingDate, boolean isRetry) {
+    public void execute(String voucherDay, boolean isRetry) {
         dayCutTaskController.execute(() -> {
             //切换会计日期
-            voucherAccountingDateDao.updateAccountingDate(accountingDate, AccountingDateUtil.getNextDay(accountingDate));
+            voucherAccountingDateDao.updateVoucherDay(voucherDay, AccountingDateUtil.getNextDay(voucherDay));
             return "日切日期更新-执行成功";
-        }, accountingDate, TASK_ID, TASK_NAME, isRetry);
+        }, voucherDay, TASK_ID, TASK_NAME, isRetry);
     }
 }

@@ -10,7 +10,25 @@
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>pay-voucher-service</artifactId>
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <configuration>
+                    <source>1.8</source>
+                    <target>1.8</target>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
     <dependencies>
+
+        <dependency>
+            <groupId>com.youzan.platform</groupId>
+            <artifactId>bootstrap</artifactId>
+        </dependency>
+
         <dependency>
             <groupId>com.dream.pay</groupId>
             <artifactId>pay-voucher-access</artifactId>
@@ -24,21 +42,9 @@
         </dependency>
 
         <dependency>
-            <groupId>com.youzan.platform</groupId>
-            <artifactId>bootstrap</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>com.youzan.platform</groupId>
-            <artifactId>nova-datasource</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>com.youzan.platform</groupId>
-            <artifactId>redisclient</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>org.jboss.resteasy</groupId>
-            <artifactId>jaxrs-api</artifactId>
+            <groupId>com.dream.pay</groupId>
+            <artifactId>pay-voucher-common</artifactId>
+            <version>${parent.version}</version>
         </dependency>
     </dependencies>
 </project>

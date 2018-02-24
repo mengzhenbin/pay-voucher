@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.dream.pay.voucher.dao.VoucherDayCutJobDao">
+    <resultMap id="BaseResultMap" type="com.dream.pay.voucher.model.VoucherDayCutJobEntity">
+        <constructor>
+            <idArg column="id" jdbcType="BIGINT" javaType="java.lang.Long"/>
+            <arg column="accounting_date" jdbcType="VARCHAR" javaType="java.lang.String"/>
+            <arg column="task_id" jdbcType="INTEGER" javaType="java.lang.Integer"/>
+            <arg column="task_execute_state" jdbcType="INTEGER" javaType="java.lang.Integer"/>
+            <arg column="task_execute_opertor" jdbcType="VARCHAR" javaType="java.lang.String"/>
+            <arg column="task_execute_desc" jdbcType="VARCHAR" javaType="java.lang.String"/>
+            <arg column="start_time" jdbcType="TIMESTAMP" javaType="java.util.Date"/>
+            <arg column="end_time" jdbcType="TIMESTAMP" javaType="java.util.Date"/>
+            <arg column="create_time" jdbcType="TIMESTAMP" javaType="java.util.Date"/>
+            <arg column="update_time" jdbcType="TIMESTAMP" javaType="java.util.Date"/>
+        </constructor>
+    </resultMap>
+    <sql id="Base_Column_List">
+        id, accounting_date, task_id, task_execute_state, task_execute_opertor, task_execute_desc,
+        start_time, end_time, create_time, update_time
+    </sql>
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long">
+        select
+        <include refid="Base_Column_List"/>
+        from voucher_day_cut_job
+        where id = #{id,jdbcType=BIGINT}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+        delete from voucher_day_cut_job
+        where id = #{id,jdbcType=BIGINT}
+    </delete>
+    <insert id="insert" parameterType="com.dream.pay.voucher.model.VoucherDayCutJobEntity">
+        insert into voucher_day_cut_job (id, accounting_date, task_id,
+        task_execute_state, task_execute_opertor, task_execute_desc,
+        start_time, end_time, create_time,
+        update_time)
+        values (#{id,jdbcType=BIGINT}, #{accountingDate,jdbcType=VARCHAR}, #{taskId,jdbcType=INTEGER},
+        #{taskExecuteState,jdbcType=INTEGER}, #{taskExecuteOpertor,jdbcType=VARCHAR},
+        #{taskExecuteDesc,jdbcType=VARCHAR},
+        #{startTime,jdbcType=TIMESTAMP}, #{endTime,jdbcType=TIMESTAMP}, #{createTime,jdbcType=TIMESTAMP},
+        #{updateTime,jdbcType=TIMESTAMP})
+    </insert>
+    <insert id="insertSelective" parameterType="com.dream.pay.voucher.model.VoucherDayCutJobEntity">
+        insert into voucher_day_cut_job
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                id,
+            </if>
+            <if test="accountingDate != null">
+                accounting_date,
+            </if>
+            <if test="taskId != null">
+                task_id,
+            </if>
+            <if test="taskExecuteState != null">
+                task_execute_state,
+            </if>
+            <if test="taskExecuteOpertor != null">
+                task_execute_opertor,
+            </if>
+            <if test="taskExecuteDesc != null">
+                task_execute_desc,
+            </if>
+            <if test="startTime != null">
+                start_time,
+            </if>
+            <if test="endTime != null">
+                end_time,
+            </if>
+            <if test="createTime != null">
+                create_time,
+            </if>
+            <if test="updateTime != null">
+                update_time,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id,jdbcType=BIGINT},
+            </if>
+            <if test="accountingDate != null">
+                #{accountingDate,jdbcType=VARCHAR},
+            </if>
+            <if test="taskId != null">
+                #{taskId,jdbcType=INTEGER},
+            </if>
+            <if test="taskExecuteState != null">
+                #{taskExecuteState,jdbcType=INTEGER},
+            </if>
+            <if test="taskExecuteOpertor != null">
+                #{taskExecuteOpertor,jdbcType=VARCHAR},
+            </if>
+            <if test="taskExecuteDesc != null">
+                #{taskExecuteDesc,jdbcType=VARCHAR},
+            </if>
+            <if test="startTime != null">
+                #{startTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="endTime != null">
+                #{endTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="createTime != null">
+                #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updateTime != null">
+                #{updateTime,jdbcType=TIMESTAMP},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.dream.pay.voucher.model.VoucherDayCutJobEntity">
+        update voucher_day_cut_job
+        <set>
+            <if test="accountingDate != null">
+                accounting_date = #{accountingDate,jdbcType=VARCHAR},
+            </if>
+            <if test="taskId != null">
+                task_id = #{taskId,jdbcType=INTEGER},
+            </if>
+            <if test="taskExecuteState != null">
+                task_execute_state = #{taskExecuteState,jdbcType=INTEGER},
+            </if>
+            <if test="taskExecuteOpertor != null">
+                task_execute_opertor = #{taskExecuteOpertor,jdbcType=VARCHAR},
+            </if>
+            <if test="taskExecuteDesc != null">
+                task_execute_desc = #{taskExecuteDesc,jdbcType=VARCHAR},
+            </if>
+            <if test="startTime != null">
+                start_time = #{startTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="endTime != null">
+                end_time = #{endTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="createTime != null">
+                create_time = #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updateTime != null">
+                update_time = #{updateTime,jdbcType=TIMESTAMP},
+            </if>
+        </set>
+        where id = #{id,jdbcType=BIGINT}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.dream.pay.voucher.model.VoucherDayCutJobEntity">
+        update voucher_day_cut_job
+        set accounting_date = #{accountingDate,jdbcType=VARCHAR},
+        task_id = #{taskId,jdbcType=INTEGER},
+        task_execute_state = #{taskExecuteState,jdbcType=INTEGER},
+        task_execute_opertor = #{taskExecuteOpertor,jdbcType=VARCHAR},
+        task_execute_desc = #{taskExecuteDesc,jdbcType=VARCHAR},
+        start_time = #{startTime,jdbcType=TIMESTAMP},
+        end_time = #{endTime,jdbcType=TIMESTAMP},
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+        update_time = #{updateTime,jdbcType=TIMESTAMP}
+        where id = #{id,jdbcType=BIGINT}
+    </update>
+
+    <select id="select" resultMap="BaseResultMap" parameterType="map">
+        select
+        <include refid="Base_Column_List"/>
+        from voucher_day_cut_job
+        where `ACCOUNTING_DATE` =#{accountingDate} and TASK_ID = #{taskId}
+    </select>
+
+    <update id="UpdateDayCutState" parameterType="map">
+        update voucher_day_cut_job
+        <set>
+            `TASK_EXECUTE_STATE`= #{taskExecuteState},
+            `TASK_EXECUTE_DESC` = #{taskExecuteDesc},
+            `END_TIME` = now(),
+            `UPDATE_TIME` = now()
+        </set>
+        where `ACCOUNTING_DATE` =#{accountingDate} and TASK_ID = #{taskId}
+    </update>
+</mapper>

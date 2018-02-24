@@ -14,36 +14,104 @@
         <module>pay-voucher-service</module>
         <module>pay-voucher-dal</module>
         <module>pay-voucher-access-impl</module>
+        <module>pay-voucher-common</module>
     </modules>
 
     <properties>
+
+        <lombok.version>1.16.6</lombok.version>
+
+        <bootstrap.version>3.1.2.4-RELEASE</bootstrap.version>
+        <framework-ibatis.version>1.0.2-RELEASE</framework-ibatis.version>
+        <redisclient.version>1.0.3-SNAPSHOT</redisclient.version>
+        <dts.version>2.0.8-service-chain-SNAPSHOT</dts.version>
+        <nsq-client.version>2.4.1.1-RELEASE</nsq-client.version>
+
+        <mybatis.version>3.2.8</mybatis.version>
+        <mybatis-spring.version>1.2.2</mybatis-spring.version>
+        <mysql-connector-java.version>5.1.30</mysql-connector-java.version>
+        <druid.version>1.0.24</druid.version>
+
         <spring.version>3.2.13.RELEASE</spring.version>
-        <bootstrap.version>3.0.5-SNAPSHOT</bootstrap.version>
-        <jaxrs-api.version>3.0.7.Final</jaxrs-api.version>
     </properties>
 
     <dependencyManagement>
         <dependencies>
+            <dependency>
+                <groupId>org.projectlombok</groupId>
+                <artifactId>lombok</artifactId>
+                <version>${lombok.version}</version>
+            </dependency>
+
+            <!-- 有赞基础架构组件依赖 start -->
             <dependency>
                 <groupId>com.youzan.platform</groupId>
                 <artifactId>bootstrap</artifactId>
                 <version>${bootstrap.version}</version>
             </dependency>
             <dependency>
-                <groupId>com.youzan.platform</groupId>
-                <artifactId>nova-datasource</artifactId>
-                <version>0.1.0-SNAPSHOT</version>
+                <groupId>com.youzan.nova.framework</groupId>
+                <artifactId>framework-ibatis</artifactId>
+                <version>${framework-ibatis.version}</version>
             </dependency>
             <dependency>
                 <groupId>com.youzan.platform</groupId>
                 <artifactId>redisclient</artifactId>
-                <version>1.0.3-SNAPSHOT</version>
+                <version>${redisclient.version}</version>
             </dependency>
             <dependency>
-                <groupId>org.jboss.resteasy</groupId>
-                <artifactId>jaxrs-api</artifactId>
-                <version>${jaxrs-api.version}</version>
+                <groupId>com.youzan.dts</groupId>
+                <artifactId>dts-server</artifactId>
+                <version>${dts.version}</version>
             </dependency>
+            <dependency>
+                <groupId>com.youzan</groupId>
+                <artifactId>NSQ-Client</artifactId>
+                <version>${nsq-client.version}</version>
+            </dependency>
+            <!-- 有赞基础架构组件依赖 end -->
+
+            <!-- dao dependencies begin-->
+            <dependency>
+                <groupId>mysql</groupId>
+                <artifactId>mysql-connector-java</artifactId>
+                <version>${mysql-connector-java.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.mybatis</groupId>
+                <artifactId>mybatis</artifactId>
+                <version>${mybatis.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.mybatis</groupId>
+                <artifactId>mybatis-spring</artifactId>
+                <version>${mybatis-spring.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.alibaba</groupId>
+                <artifactId>druid</artifactId>
+                <version>${druid.version}</version>
+            </dependency>
+            <!-- dao dependencies end -->
+
+            <!-- spring dependencies -->
+            <dependency>
+                <groupId>org.springframework</groupId>
+                <artifactId>spring-core</artifactId>
+                <version>${spring.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework</groupId>
+                <artifactId>spring-tx</artifactId>
+                <version>${spring.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework</groupId>
+                <artifactId>spring-context</artifactId>
+                <version>${spring.version}</version>
+            </dependency>
+            <!-- spring dependencies end -->
+
         </dependencies>
     </dependencyManagement>
 </project>

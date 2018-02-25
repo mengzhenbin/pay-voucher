@@ -1,4 +1,4 @@
-package com.dream.pay.voucher.common;
+package com.dream.pay.voucher.common.utils;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;

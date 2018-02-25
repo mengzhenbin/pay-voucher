@@ -1,6 +1,7 @@
-package com.dream.pay.voucher.common;
+package com.dream.pay.voucher.common.enums;
 
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 /**
@@ -10,6 +11,7 @@ import lombok.Getter;
  * @since 2018/2/1
  */
 @Getter
+@AllArgsConstructor
 public enum DayCutTaskList {
     START_DAY_CUT_TASK(1, "日切创建任务"),
     DEBT_AND_CREDIT_SUMMARY_TASK(2, "借贷发生额汇总任务"),
@@ -24,11 +26,6 @@ public enum DayCutTaskList {
 
     private int id;
     private String name;
-
-    DayCutTaskList(int id, String name) {
-        this.id = id;
-        this.name = name;
-    }
 
     public static DayCutTaskList selectById(int id) {
         for (DayCutTaskList dayCutTaskList : DayCutTaskList.values()) {

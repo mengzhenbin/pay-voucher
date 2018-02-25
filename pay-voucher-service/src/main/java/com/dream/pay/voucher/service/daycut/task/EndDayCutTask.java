@@ -1,8 +1,8 @@
 package com.dream.pay.voucher.service.daycut.task;
 
 
-import com.dream.pay.voucher.common.AccountingDateUtil;
-import com.dream.pay.voucher.common.DayCutTaskList;
+import com.dream.pay.voucher.common.utils.AccountingDateUtil;
+import com.dream.pay.voucher.common.enums.DayCutTaskList;
 import com.dream.pay.voucher.dao.VoucherDayDao;
 import com.dream.pay.voucher.service.daycut.core.DayCutTask;
 import com.dream.pay.voucher.service.daycut.core.DayCutTaskController;

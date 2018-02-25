@@ -1,7 +1,7 @@
 package com.dream.pay.voucher.service.daycut.task;
 
 
-import com.dream.pay.voucher.common.DayCutTaskList;
+import com.dream.pay.voucher.common.enums.DayCutTaskList;
 import com.dream.pay.voucher.service.daycut.core.DayCutTask;
 import com.dream.pay.voucher.service.daycut.core.DayCutTaskController;
 import lombok.extern.slf4j.Slf4j;

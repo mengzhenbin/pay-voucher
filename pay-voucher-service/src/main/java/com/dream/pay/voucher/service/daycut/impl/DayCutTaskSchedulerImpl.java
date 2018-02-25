@@ -1,6 +1,6 @@
 package com.dream.pay.voucher.service.daycut.impl;
 
-import com.dream.pay.voucher.common.DayCutTaskList;
+import com.dream.pay.voucher.common.enums.DayCutTaskList;
 import com.dream.pay.voucher.service.daycut.DayCutTaskFactory;
 import com.dream.pay.voucher.service.daycut.DayCutTaskScheduler;
 import com.dream.pay.voucher.service.daycut.core.DayCutTask;

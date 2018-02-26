@@ -199,24 +199,25 @@
         where id = #{id,jdbcType=BIGINT}
     </update>
 
-    <select id="selectMaxId" resultType="java.lang.String">
-        SELECT ID FROM VOUCHER_SUBJECT_RECORD WHERE VOUCHER_DATE = #{voucherDate} ORDER BY ID DESC LIMIT 1;
+    <select id="selectMaxId" resultType="java.lang.Long">
+        SELECT ifnull(ID,0) FROM voucher_subject_record WHERE VOUCHER_DATE = #{voucherDate} ORDER BY ID DESC LIMIT 1;
     </select>
 
     <select id="selectByVoucherDay" resultMap="BaseResultMap">
         SELECT
         <include refid="Base_Column_List"/>
-        FROM VOUCHER_SUBJECT_RECORD WHERE ID BETWEEN #{startRow} AND #{endRow} AND VOUCHER_DATE = #{voucherDate} ;
+        FROM voucher_subject_record WHERE ID BETWEEN #{startRow} AND #{endRow} AND VOUCHER_DATE = #{voucherDate} ;
     </select>
 
     <select id="countSubjectRecordByVoucherDayAndAcctNo" resultType="java.lang.Long">
-        SELECT COUNT(1) from VOUCHER_SUBJECT_RECORD WHERE VOUCHER_DATE = #{voucherDate} and ACCOUNT_NO=#{accountNo};
+        SELECT ifnull(COUNT(1),0) from voucher_subject_record WHERE VOUCHER_DATE = #{voucherDate} and
+        ACCOUNT_NO=#{accountNo};
     </select>
 
-    <select id="selectByVoucherDayAndAccountNo" resultMap="AccountingSubjectRecordBIResultMap">
+    <select id="selectByVoucherDayAndAccountNo" resultMap="BaseResultMap">
         select
         <include refid="Base_Column_List"/>
-        FROM VOUCHER_SUBJECT_RECORD WHERE VOUCHER_DATE = #{voucherDate} and ACCOUNT_NO=#{accountNo}
+        FROM voucher_subject_record WHERE VOUCHER_DATE = #{voucherDate} and ACCOUNT_NO=#{accountNo}
         LIMIT #{startRow} ,#{pageSize};
     </select>
 

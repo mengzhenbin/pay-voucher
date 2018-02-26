@@ -224,12 +224,12 @@
         where id = #{id,jdbcType=BIGINT}
     </update>
 
-    <select id="selectMaxId" resultType="java.lang.String">
-        SELECT id from voucher_subject_summary where voucher_date = #{voucherDay} order by id desc limit 1 ;
+    <select id="selectMaxId" resultType="java.lang.Long">
+        SELECT ifnull(id,0) from voucher_subject_summary where voucher_date = #{voucherDay} order by id desc limit 1 ;
     </select>
 
-    <select id="selectMinId" resultType="java.lang.String">
-        SELECT id from voucher_subject_summary where voucher_date = #{voucherDay} order by id asc limit 1 ;
+    <select id="selectMinId" resultType="java.lang.Long">
+        SELECT ifnull(id,0) from voucher_subject_summary where voucher_date = #{voucherDay} order by id asc limit 1 ;
     </select>
 
     <select id="selectByVoucherDate" resultMap="BaseResultMap">

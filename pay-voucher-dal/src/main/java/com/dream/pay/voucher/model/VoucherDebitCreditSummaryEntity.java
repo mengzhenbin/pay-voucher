@@ -23,5 +23,4 @@ public class VoucherDebitCreditSummaryEntity {
 
     private Date updateTime;
 
-
 }

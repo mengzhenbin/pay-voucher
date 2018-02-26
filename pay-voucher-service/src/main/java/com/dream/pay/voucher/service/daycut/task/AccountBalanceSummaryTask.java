@@ -56,8 +56,10 @@ public class AccountBalanceSummaryTask implements DayCutTask {
     public void execute(String voucherDay, boolean isRetry) {
         dayCutTaskController.execute(() -> {
             //分页处理
-            long maxId = voucherSubjectSummaryDao.selectMaxId(voucherDay);
-            long minId = voucherSubjectSummaryDao.selectMinId(voucherDay);
+            Long maxId = voucherSubjectSummaryDao.selectMaxId(voucherDay);
+            maxId = maxId == null ? 0 : maxId;
+            Long minId = voucherSubjectSummaryDao.selectMinId(voucherDay);
+            minId = minId == null ? 0 : minId;
             int pageCount = (maxId == minId) ? 1 : (int) ((maxId - minId) / PAGE_SIZE);
             if ((maxId - minId) % PAGE_SIZE != 0) {
                 pageCount = pageCount + 1;
@@ -103,7 +105,8 @@ public class AccountBalanceSummaryTask implements DayCutTask {
 
         long startTime = System.currentTimeMillis();
         //获取最大记录ID
-        long num = voucherSubjectRecordDao.countSubjectRecordByVoucherDayAndAcctNo(voucherDay, voucherSubjectSummaryEntity.getAccountNo());
+        Long num = voucherSubjectRecordDao.countSubjectRecordByVoucherDayAndAcctNo(voucherDay, voucherSubjectSummaryEntity.getAccountNo());
+        num = num == null ? 0 : num;
         long pageCount = (int) ((num) / PAGE_SIZE);
         if (num % PAGE_SIZE != 0) {
             pageCount = pageCount + 1;

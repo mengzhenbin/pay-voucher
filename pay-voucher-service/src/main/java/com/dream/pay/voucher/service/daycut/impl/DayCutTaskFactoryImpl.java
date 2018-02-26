@@ -3,6 +3,7 @@ package com.dream.pay.voucher.service.daycut.impl;
 import com.dream.pay.voucher.common.enums.DayCutTaskList;
 import com.dream.pay.voucher.service.daycut.DayCutTaskFactory;
 import com.dream.pay.voucher.service.daycut.core.DayCutTask;
+import com.dream.pay.voucher.service.daycut.task.AccountBalanceSummaryTask;
 import com.dream.pay.voucher.service.daycut.task.DebtAndCreditSummaryTask;
 import com.dream.pay.voucher.service.daycut.task.EndDayCutTask;
 import com.dream.pay.voucher.service.daycut.task.StartDayCutTask;
@@ -27,6 +28,8 @@ public class DayCutTaskFactoryImpl implements DayCutTaskFactory {
     StartDayCutTask startDayCutTask;
     @Resource
     DebtAndCreditSummaryTask debtAndCreditSummaryTask;
+    @Resource
+    AccountBalanceSummaryTask acctBalanceSummaryTask;
     //    @Resource
 //    DebtAndCreditCheckTask debtAndCreditCheckTask;
 //    @Resource
@@ -36,8 +39,7 @@ public class DayCutTaskFactoryImpl implements DayCutTaskFactory {
     @Resource
     EndDayCutTask endDayCutTask;
 
-//    @Resource
-//    AcctBalanceSummaryTask acctBalanceSummaryTask;
+
 //    @Resource
 //    SubjectAmountSummaryTask subjectAmountSummaryTask;
 
@@ -52,11 +54,11 @@ public class DayCutTaskFactoryImpl implements DayCutTaskFactory {
         if (taskId == DayCutTaskList.DEBT_AND_CREDIT_SUMMARY_TASK.getId()) {
             return debtAndCreditSummaryTask;
         }
-//
-//        //内部户余额汇总任务
-//        if (taskId == DayCutTaskList.INNER_ACCT_BALANCE_SUMMARY_TASK.getId()) {
-//            return acctBalanceSummaryTask;
-//        }
+
+        //内部户余额汇总任务
+        if (taskId == DayCutTaskList.INNER_ACCT_BALANCE_SUMMARY_TASK.getId()) {
+            return acctBalanceSummaryTask;
+        }
 //
 //        //借贷试算平衡任务
 //        if (taskId == DayCutTaskList.DEBT_AND_CREDIT_CHECK_TASK.getId()) {

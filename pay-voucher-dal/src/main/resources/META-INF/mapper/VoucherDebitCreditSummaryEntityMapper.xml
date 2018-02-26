@@ -24,7 +24,7 @@
     delete from voucher_debit_credit_summary
     where id = #{id,jdbcType=BIGINT}
   </delete>
-  <insert id="insert" parameterType="VoucherDebitCreditSummaryEntityMapper.xml" >
+  <insert id="insert" parameterType="com.dream.pay.voucher.model.VoucherDebitCreditSummaryEntity" >
     insert into voucher_debit_credit_summary (id, voucher_date, debit_amount, 
       credit_amount, create_time, update_time
       )
@@ -32,7 +32,7 @@
       #{creditAmount,jdbcType=BIGINT}, #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}
       )
   </insert>
-  <insert id="insertSelective" parameterType="VoucherDebitCreditSummaryEntityMapper.xml" >
+  <insert id="insertSelective" parameterType="com.dream.pay.voucher.model.VoucherDebitCreditSummaryEntity" >
     insert into voucher_debit_credit_summary
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="id != null" >
@@ -75,7 +75,7 @@
       </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="VoucherDebitCreditSummaryEntityMapper.xml" >
+  <update id="updateByPrimaryKeySelective" parameterType="com.dream.pay.voucher.model.VoucherDebitCreditSummaryEntity" >
     update voucher_debit_credit_summary
     <set >
       <if test="voucherDate != null" >
@@ -96,7 +96,7 @@
     </set>
     where id = #{id,jdbcType=BIGINT}
   </update>
-  <update id="updateByPrimaryKey" parameterType="VoucherDebitCreditSummaryEntityMapper.xml" >
+  <update id="updateByPrimaryKey" parameterType="com.dream.pay.voucher.model.VoucherDebitCreditSummaryEntity" >
     update voucher_debit_credit_summary
     set voucher_date = #{voucherDate,jdbcType=CHAR},
       debit_amount = #{debitAmount,jdbcType=BIGINT},

@@ -19,9 +19,9 @@ public interface VoucherSubjectSummaryDao {
 
     int updateByPrimaryKey(VoucherSubjectSummaryEntity record);
 
-    long selectMaxId(@Param("voucherDay") String voucherDay);
+    Long selectMaxId(@Param("voucherDay") String voucherDay);
 
-    long selectMinId(@Param("voucherDay") String voucherDay);
+    Long selectMinId(@Param("voucherDay") String voucherDay);
 
     List<VoucherSubjectSummaryEntity> selectByVoucherDate(@Param("voucherDay") String voucherDay,
                                                           @Param("startRow")long startRow,

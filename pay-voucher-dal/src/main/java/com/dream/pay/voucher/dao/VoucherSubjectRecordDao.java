@@ -19,13 +19,13 @@ public interface VoucherSubjectRecordDao {
 
     int updateByPrimaryKey(VoucherSubjectRecordEntity record);
 
-    long selectMaxId(@Param("voucherDate") String voucherDay);
+    Long selectMaxId(@Param("voucherDate") String voucherDay);
 
     List<VoucherSubjectRecordEntity> selectByVoucherDay(@Param("voucherDate") String voucherDay,
                                                         @Param("startRow") long startRow,
                                                         @Param("endRow") long endRow);
 
-    long countSubjectRecordByVoucherDayAndAcctNo(@Param("voucherDate") String voucherDay,
+    Long countSubjectRecordByVoucherDayAndAcctNo(@Param("voucherDate") String voucherDay,
                                                  @Param("accountNo") String accountNo);
 
     List<VoucherSubjectRecordEntity> selectByVoucherDayAndAccountNo(@Param("voucherDate") String voucherDay,

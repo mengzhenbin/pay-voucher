@@ -1,6 +1,5 @@
 package com.dream.pay.voucher.dao;
 
-
 import com.dream.pay.voucher.model.VoucherDebitCreditSummaryEntity;
 
 public interface VoucherDebitCreditSummaryDao {

@@ -47,7 +47,8 @@ public class DebtAndCreditSummaryTask implements DayCutTask {
             long debitAmount = 0L;
             long creditAmount = 0L;
             //获取最大记录ID
-            long maxId = voucherSubjectRecordDao.selectMaxId(voucherDay);
+            Long maxId = voucherSubjectRecordDao.selectMaxId(voucherDay);
+            maxId = maxId == null ? 0 : maxId;
             int pageCount = (int) (maxId / PAGE_SIZE);
             if (maxId % PAGE_SIZE != 0) {
                 pageCount = pageCount + 1;

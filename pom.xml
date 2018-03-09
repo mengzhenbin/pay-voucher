@@ -20,6 +20,7 @@
     <properties>
 
         <lombok.version>1.16.6</lombok.version>
+        <hibernate-validator.version>4.3.2.Final</hibernate-validator.version>
 
         <bootstrap.version>3.1.2.4-RELEASE</bootstrap.version>
         <framework-ibatis.version>1.0.2-RELEASE</framework-ibatis.version>
@@ -33,6 +34,8 @@
         <druid.version>1.0.24</druid.version>
 
         <spring.version>3.2.13.RELEASE</spring.version>
+
+        <pay-common.version>1.0-SNAPSHOT</pay-common.version>
     </properties>
 
     <dependencyManagement>
@@ -41,6 +44,11 @@
                 <groupId>org.projectlombok</groupId>
                 <artifactId>lombok</artifactId>
                 <version>${lombok.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.hibernate</groupId>
+                <artifactId>hibernate-validator</artifactId>
+                <version>${hibernate-validator.version}</version>
             </dependency>
 
             <!-- 有赞基础架构组件依赖 start -->
@@ -112,6 +120,11 @@
             </dependency>
             <!-- spring dependencies end -->
 
+            <dependency>
+                <groupId>com.dream.pay</groupId>
+                <artifactId>pay-common</artifactId>
+                <version>${pay-common.version}</version>
+            </dependency>
         </dependencies>
     </dependencyManagement>
 </project>

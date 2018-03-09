@@ -2,17 +2,15 @@ package com.dream.pay.voucher.service.daycut.task;
 
 import com.dream.pay.voucher.common.enums.DayCutTaskList;
 import com.dream.pay.voucher.common.enums.RecordDir;
-import com.dream.pay.voucher.dao.VoucherDebitCreditSummaryDao;
-import com.dream.pay.voucher.dao.VoucherSubjectRecordDao;
-import com.dream.pay.voucher.model.VoucherDebitCreditSummaryEntity;
-import com.dream.pay.voucher.model.VoucherSubjectRecordEntity;
+import com.dream.pay.voucher.model.VoucherSubjectRecordDO;
+import com.dream.pay.voucher.repository.DebitCreditRepository;
+import com.dream.pay.voucher.repository.SubjectRecordRepository;
 import com.dream.pay.voucher.service.daycut.core.DayCutTask;
 import com.dream.pay.voucher.service.daycut.core.DayCutTaskController;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
-import java.util.Date;
 import java.util.List;
 
 /**
@@ -25,10 +23,11 @@ public class DebtAndCreditSummaryTask implements DayCutTask {
 
     @Resource
     DayCutTaskController dayCutTaskController;
+
     @Resource
-    VoucherSubjectRecordDao voucherSubjectRecordDao;
+    SubjectRecordRepository subjectRecordRepositoryImpl;
     @Resource
-    VoucherDebitCreditSummaryDao voucherDebitCreditSummaryDao;
+    DebitCreditRepository debitCreditRepositoryImpl;
 
     /**
      * 任务ID
@@ -47,7 +46,7 @@ public class DebtAndCreditSummaryTask implements DayCutTask {
             long debitAmount = 0L;
             long creditAmount = 0L;
             //获取最大记录ID
-            Long maxId = voucherSubjectRecordDao.selectMaxId(voucherDay);
+            Long maxId = subjectRecordRepositoryImpl.selectMaxId(voucherDay);
             maxId = maxId == null ? 0 : maxId;
             int pageCount = (int) (maxId / PAGE_SIZE);
             if (maxId % PAGE_SIZE != 0) {
@@ -57,9 +56,9 @@ public class DebtAndCreditSummaryTask implements DayCutTask {
             long startRow = maxId - PAGE_SIZE <= 0 ? 0 : (maxId - PAGE_SIZE) + 1;
             long endRow = maxId;
 
-            List<VoucherSubjectRecordEntity> voucherRecords;
+            List<VoucherSubjectRecordDO> voucherRecords;
             for (int i = 0; i < pageCount; ++i) {
-                voucherRecords = voucherSubjectRecordDao.selectByVoucherDay(voucherDay, startRow, endRow);
+                voucherRecords = subjectRecordRepositoryImpl.selectByVoucherDate(voucherDay, startRow, endRow);
 
                 if (voucherRecords.size() == 0) {
                     break;
@@ -69,39 +68,21 @@ public class DebtAndCreditSummaryTask implements DayCutTask {
                     endRow -= PAGE_SIZE;
                 }
 
-                for (VoucherSubjectRecordEntity voucherSubjectRecordEntity : voucherRecords) {
+                for (VoucherSubjectRecordDO voucherSubjectRecordDO : voucherRecords) {
 
-                    if (voucherSubjectRecordEntity.getRecordDir().equals(RecordDir.D.getId())) {
+                    if (voucherSubjectRecordDO.getRecordDir().equals(RecordDir.D.getId())) {
                         //借方发生额
-                        debitAmount += voucherSubjectRecordEntity.getAmount();
+                        debitAmount += voucherSubjectRecordDO.getAmount();
                     } else {
                         //贷方发生额
-                        creditAmount += voucherSubjectRecordEntity.getAmount();
+                        creditAmount += voucherSubjectRecordDO.getAmount();
                     }
                 }
             }
             //插入借贷发生汇总记录
-            voucherDebitCreditSummaryDao.insert(buildVoucherDebitCreditSummaryEntity(voucherDay, debitAmount, creditAmount));
+            debitCreditRepositoryImpl.insertAmount(voucherDay, debitAmount, creditAmount);
             return "借贷发生额汇总完毕";
         }, voucherDay, TASK_ID, TASK_NAME, isRetry);
 
-    }
-
-    /**
-     * 组装借贷发生汇总记录
-     *
-     * @param voucherDay
-     * @param debitAmount
-     * @param creditAmount
-     * @return
-     */
-    private VoucherDebitCreditSummaryEntity buildVoucherDebitCreditSummaryEntity(String voucherDay, long debitAmount, long creditAmount) {
-        VoucherDebitCreditSummaryEntity voucherDebitCreditSummaryEntity = new VoucherDebitCreditSummaryEntity();
-        voucherDebitCreditSummaryEntity.setVoucherDate(voucherDay);
-        voucherDebitCreditSummaryEntity.setCreditAmount(creditAmount);
-        voucherDebitCreditSummaryEntity.setDebitAmount(debitAmount);
-        voucherDebitCreditSummaryEntity.setCreateTime(new Date());
-        voucherDebitCreditSummaryEntity.setUpdateTime(new Date());
-        return voucherDebitCreditSummaryEntity;
     }
 }

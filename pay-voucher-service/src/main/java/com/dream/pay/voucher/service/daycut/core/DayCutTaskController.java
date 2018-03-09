@@ -2,8 +2,8 @@ package com.dream.pay.voucher.service.daycut.core;
 
 import com.dream.pay.voucher.common.enums.DayCutTaskList;
 import com.dream.pay.voucher.common.enums.DayCutTaskStatus;
-import com.dream.pay.voucher.dao.VoucherDayCutJobDao;
-import com.dream.pay.voucher.model.VoucherDayCutJobEntity;
+import com.dream.pay.voucher.dao.VoucherDayCutLogDOMapper;
+import com.dream.pay.voucher.model.VoucherDayCutLogDO;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
@@ -17,7 +17,7 @@ import java.util.Date;
 @Component
 public class DayCutTaskController<T> {
     @Resource
-    VoucherDayCutJobDao voucherDayCutJobDao;
+    VoucherDayCutLogDOMapper voucherDayCutLogDao;
 
     public void execute(DayCutTaskCallback<T> task, String voucherDay, int taskId, String taskName, boolean isRetry) {
         long startTime = System.currentTimeMillis();
@@ -60,15 +60,15 @@ public class DayCutTaskController<T> {
      * @return Boolean
      */
     private Boolean checkTaskCanBeExecute(String voucherDay, int taskId, String taskName) {
-        VoucherDayCutJobEntity currentDayCutJobEntity = voucherDayCutJobDao.select(voucherDay, taskId);
-        if (null != currentDayCutJobEntity) {
+        VoucherDayCutLogDO currentDayCutJobDO = voucherDayCutLogDao.select(voucherDay, taskId);
+        if (null != currentDayCutJobDO) {
             log.error("[{}]-[{}]已经存在,不能重复执行", voucherDay, taskName);
             return Boolean.FALSE;
         }
         //START_DAY_CUT_TASK任务除外其他任务,如果START_DAY_CUT_TASK任务未执行成功,其他任务不允许执行
         if (DayCutTaskList.START_DAY_CUT_TASK.getId() != taskId) {
-            VoucherDayCutJobEntity startDayCutJobEntity = voucherDayCutJobDao.select(voucherDay, DayCutTaskList.START_DAY_CUT_TASK.getId());
-            if (DayCutTaskStatus.DAY_CUT_SUCCESS.getId() != startDayCutJobEntity.getTaskExecuteState())
+            VoucherDayCutLogDO startDayCutJobDO = voucherDayCutLogDao.select(voucherDay, DayCutTaskList.START_DAY_CUT_TASK.getId());
+            if (DayCutTaskStatus.DAY_CUT_SUCCESS.getId() != startDayCutJobDO.getTaskExecuteState())
                 return Boolean.FALSE;
         }
         return Boolean.TRUE;
@@ -81,14 +81,13 @@ public class DayCutTaskController<T> {
      * @param taskId
      */
     private void createDayCutLog(String voucherDay, int taskId) {
-        VoucherDayCutJobEntity voucherDayCutJobEntity = new VoucherDayCutJobEntity();
-        voucherDayCutJobEntity.setTaskId(taskId);
-        voucherDayCutJobEntity.setVoucherDay(voucherDay);
-        voucherDayCutJobEntity.setStartTime(new Date());
-        voucherDayCutJobEntity.setCreateTime(new Date());
-        voucherDayCutJobEntity.setTaskExecuteState(DayCutTaskStatus.DAY_CUT_ING.getId());
-        voucherDayCutJobEntity.setTaskExecuteOpertor("SYS");
-        voucherDayCutJobDao.insert(voucherDayCutJobEntity);
+        VoucherDayCutLogDO DOVoucherDayCutLogDO = new VoucherDayCutLogDO();
+        DOVoucherDayCutLogDO.setTaskId(taskId);
+        DOVoucherDayCutLogDO.setVoucherDate(voucherDay);
+        DOVoucherDayCutLogDO.setCreateTime(new Date());
+        DOVoucherDayCutLogDO.setTaskExecuteState(DayCutTaskStatus.DAY_CUT_ING.getId());
+        DOVoucherDayCutLogDO.setTaskExecuteOpertor("SYS");
+        voucherDayCutLogDao.insert(DOVoucherDayCutLogDO);
     }
 
     /**
@@ -98,7 +97,7 @@ public class DayCutTaskController<T> {
      * @param taskId
      */
     private void taskSuccess(String voucherDay, int taskId, String desc) {
-        voucherDayCutJobDao.UpdateDayCutState(voucherDay, taskId, desc, DayCutTaskStatus.DAY_CUT_SUCCESS.getId());
+        voucherDayCutLogDao.updateDayCutState(voucherDay, taskId, desc, DayCutTaskStatus.DAY_CUT_SUCCESS.getId());
     }
 
     /**
@@ -108,6 +107,6 @@ public class DayCutTaskController<T> {
      * @param taskId
      */
     private void taskFail(String voucherDay, int taskId, String desc) {
-        voucherDayCutJobDao.UpdateDayCutState(voucherDay, taskId, desc, DayCutTaskStatus.DAY_CUT_FAIL.getId());
+        voucherDayCutLogDao.updateDayCutState(voucherDay, taskId, desc, DayCutTaskStatus.DAY_CUT_FAIL.getId());
     }
 }

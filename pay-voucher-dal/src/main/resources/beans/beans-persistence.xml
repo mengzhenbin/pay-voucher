@@ -64,7 +64,7 @@
     </bean>
     <bean id="defaultSqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
         <property name="dataSource" ref="defaultDataSource"/>
-        <property name="mapperLocations" value="classpath*:META-INF/mapper/*EntityMapper.xml"/>
+        <property name="mapperLocations" value="classpath*:META-INF/mapper/*DOMapper.xml"/>
         <!--<property name="typeAliasesPackage" value="com.dream.pay.center.model"/>-->
     </bean>
     <bean id="defaultTx" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">

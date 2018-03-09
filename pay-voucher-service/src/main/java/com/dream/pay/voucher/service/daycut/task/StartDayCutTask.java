@@ -12,7 +12,8 @@ import javax.annotation.Resource;
 /**
  * 日切启动任务
  *
- * @author hechengqi  17/2/1
+ * @author mengzhenbin
+ * @since 2017/2/1
  */
 @Slf4j
 @Component

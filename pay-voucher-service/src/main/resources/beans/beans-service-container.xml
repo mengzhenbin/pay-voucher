@@ -7,7 +7,11 @@
 	    http://code.alibabatech.com/schema/dubbo
 	    http://code.alibabatech.com/schema/dubbo/dubbo.xsd">
     <!-- 使用注解方式暴露接口 -->
-    <bean id="dayCut" class="com.dream.pay.voucher.access.impl.DayCutServiceImpl"/>
-    <dubbo:service interface="com.dream.pay.voucher.access.DayCutService" ref="dayCut" protocol="dubbo,rest"
+    <bean id="dayCut" class="com.dream.pay.voucher.access.impl.VoucherDayCutFacadeImpl"/>
+    <dubbo:service interface="com.dream.pay.voucher.access.facade.VoucherDayCutFacade" ref="dayCut" protocol="dubbo,rest"
+                   registry="zookeeper"/>
+
+    <bean id="voucher" class="com.dream.pay.voucher.access.impl.VoucherRecodeFacadeImpl"/>
+    <dubbo:service interface="com.dream.pay.voucher.access.facade.VoucherRecordFacade" ref="voucher" protocol="dubbo,rest"
                    registry="zookeeper"/>
 </beans>

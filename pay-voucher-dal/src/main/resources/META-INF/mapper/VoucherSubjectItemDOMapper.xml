@@ -1,0 +1,207 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.dream.pay.voucher.dao.VoucherSubjectItemDOMapper" >
+  <resultMap id="BaseResultMap" type="com.dream.pay.voucher.model.VoucherSubjectItemDO" >
+    <constructor >
+      <idArg column="id" jdbcType="BIGINT" javaType="java.lang.Long" />
+      <arg column="subject_code" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="subject_type" jdbcType="BIT" javaType="java.lang.Boolean" />
+      <arg column="subject_level" jdbcType="BIT" javaType="java.lang.Boolean" />
+      <arg column="subject_name" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="subject_abb_name" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="parents_code" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="balance_dir" jdbcType="CHAR" javaType="java.lang.String" />
+      <arg column="enable_date" jdbcType="CHAR" javaType="java.lang.String" />
+      <arg column="unable_date" jdbcType="CHAR" javaType="java.lang.String" />
+      <arg column="over_flag" jdbcType="BIT" javaType="java.lang.Boolean" />
+      <arg column="active_flag" jdbcType="BIT" javaType="java.lang.Boolean" />
+      <arg column="create_time" jdbcType="TIMESTAMP" javaType="java.util.Date" />
+      <arg column="update_time" jdbcType="TIMESTAMP" javaType="java.util.Date" />
+    </constructor>
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, subject_code, subject_type, subject_level, subject_name, subject_abb_name, parents_code, 
+    balance_dir, enable_date, unable_date, over_flag, active_flag, create_time, update_time
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from voucher_subject_item
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from voucher_subject_item
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.dream.pay.voucher.model.VoucherSubjectItemDO" >
+    insert into voucher_subject_item (id, subject_code, subject_type, 
+      subject_level, subject_name, subject_abb_name, 
+      parents_code, balance_dir, enable_date, 
+      unable_date, over_flag, active_flag, 
+      create_time, update_time)
+    values (#{id,jdbcType=BIGINT}, #{subjectCode,jdbcType=VARCHAR}, #{subjectType,jdbcType=BIT}, 
+      #{subjectLevel,jdbcType=BIT}, #{subjectName,jdbcType=VARCHAR}, #{subjectAbbName,jdbcType=VARCHAR}, 
+      #{parentsCode,jdbcType=VARCHAR}, #{balanceDir,jdbcType=CHAR}, #{enableDate,jdbcType=CHAR}, 
+      #{unableDate,jdbcType=CHAR}, #{overFlag,jdbcType=BIT}, #{activeFlag,jdbcType=BIT}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.dream.pay.voucher.model.VoucherSubjectItemDO" >
+    insert into voucher_subject_item
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="subjectCode != null" >
+        subject_code,
+      </if>
+      <if test="subjectType != null" >
+        subject_type,
+      </if>
+      <if test="subjectLevel != null" >
+        subject_level,
+      </if>
+      <if test="subjectName != null" >
+        subject_name,
+      </if>
+      <if test="subjectAbbName != null" >
+        subject_abb_name,
+      </if>
+      <if test="parentsCode != null" >
+        parents_code,
+      </if>
+      <if test="balanceDir != null" >
+        balance_dir,
+      </if>
+      <if test="enableDate != null" >
+        enable_date,
+      </if>
+      <if test="unableDate != null" >
+        unable_date,
+      </if>
+      <if test="overFlag != null" >
+        over_flag,
+      </if>
+      <if test="activeFlag != null" >
+        active_flag,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="subjectCode != null" >
+        #{subjectCode,jdbcType=VARCHAR},
+      </if>
+      <if test="subjectType != null" >
+        #{subjectType,jdbcType=BIT},
+      </if>
+      <if test="subjectLevel != null" >
+        #{subjectLevel,jdbcType=BIT},
+      </if>
+      <if test="subjectName != null" >
+        #{subjectName,jdbcType=VARCHAR},
+      </if>
+      <if test="subjectAbbName != null" >
+        #{subjectAbbName,jdbcType=VARCHAR},
+      </if>
+      <if test="parentsCode != null" >
+        #{parentsCode,jdbcType=VARCHAR},
+      </if>
+      <if test="balanceDir != null" >
+        #{balanceDir,jdbcType=CHAR},
+      </if>
+      <if test="enableDate != null" >
+        #{enableDate,jdbcType=CHAR},
+      </if>
+      <if test="unableDate != null" >
+        #{unableDate,jdbcType=CHAR},
+      </if>
+      <if test="overFlag != null" >
+        #{overFlag,jdbcType=BIT},
+      </if>
+      <if test="activeFlag != null" >
+        #{activeFlag,jdbcType=BIT},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.dream.pay.voucher.model.VoucherSubjectItemDO" >
+    update voucher_subject_item
+    <set >
+      <if test="subjectCode != null" >
+        subject_code = #{subjectCode,jdbcType=VARCHAR},
+      </if>
+      <if test="subjectType != null" >
+        subject_type = #{subjectType,jdbcType=BIT},
+      </if>
+      <if test="subjectLevel != null" >
+        subject_level = #{subjectLevel,jdbcType=BIT},
+      </if>
+      <if test="subjectName != null" >
+        subject_name = #{subjectName,jdbcType=VARCHAR},
+      </if>
+      <if test="subjectAbbName != null" >
+        subject_abb_name = #{subjectAbbName,jdbcType=VARCHAR},
+      </if>
+      <if test="parentsCode != null" >
+        parents_code = #{parentsCode,jdbcType=VARCHAR},
+      </if>
+      <if test="balanceDir != null" >
+        balance_dir = #{balanceDir,jdbcType=CHAR},
+      </if>
+      <if test="enableDate != null" >
+        enable_date = #{enableDate,jdbcType=CHAR},
+      </if>
+      <if test="unableDate != null" >
+        unable_date = #{unableDate,jdbcType=CHAR},
+      </if>
+      <if test="overFlag != null" >
+        over_flag = #{overFlag,jdbcType=BIT},
+      </if>
+      <if test="activeFlag != null" >
+        active_flag = #{activeFlag,jdbcType=BIT},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.dream.pay.voucher.model.VoucherSubjectItemDO" >
+    update voucher_subject_item
+    set subject_code = #{subjectCode,jdbcType=VARCHAR},
+      subject_type = #{subjectType,jdbcType=BIT},
+      subject_level = #{subjectLevel,jdbcType=BIT},
+      subject_name = #{subjectName,jdbcType=VARCHAR},
+      subject_abb_name = #{subjectAbbName,jdbcType=VARCHAR},
+      parents_code = #{parentsCode,jdbcType=VARCHAR},
+      balance_dir = #{balanceDir,jdbcType=CHAR},
+      enable_date = #{enableDate,jdbcType=CHAR},
+      unable_date = #{unableDate,jdbcType=CHAR},
+      over_flag = #{overFlag,jdbcType=BIT},
+      active_flag = #{activeFlag,jdbcType=BIT},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+
+  <select id="selectByCode" parameterType="java.lang.String" resultMap="BaseResultMap">
+    SELECT
+    <include refid="Base_Column_List"/>
+    FROM VOUCHER_SUBJECT_ITEM WHERE SUBJECT_CODE= #{subjectCode} limit 1;
+  </select>
+</mapper>

@@ -3,12 +3,12 @@ package com.dream.pay.voucher.service.daycut.task;
 
 import com.dream.pay.voucher.common.enums.DayCutTaskList;
 import com.dream.pay.voucher.common.enums.RecordDir;
-import com.dream.pay.voucher.dao.VoucherSubjectItemDao;
-import com.dream.pay.voucher.dao.VoucherSubjectRecordDao;
-import com.dream.pay.voucher.dao.VoucherSubjectSummaryDao;
-import com.dream.pay.voucher.model.VoucherSubjectItemEntity;
-import com.dream.pay.voucher.model.VoucherSubjectRecordEntity;
-import com.dream.pay.voucher.model.VoucherSubjectSummaryEntity;
+import com.dream.pay.voucher.model.VoucherSubjectItemDO;
+import com.dream.pay.voucher.model.VoucherSubjectRecordDO;
+import com.dream.pay.voucher.model.VoucherSubjectSummaryDO;
+import com.dream.pay.voucher.repository.SubjectItemRepository;
+import com.dream.pay.voucher.repository.SubjectRecordRepository;
+import com.dream.pay.voucher.repository.SubjectSummaryRepository;
 import com.dream.pay.voucher.service.daycut.core.DayCutTask;
 import com.dream.pay.voucher.service.daycut.core.DayCutTaskController;
 import lombok.extern.slf4j.Slf4j;
@@ -28,14 +28,16 @@ import java.util.List;
 @Slf4j
 @Component
 public class AccountBalanceSummaryTask implements DayCutTask {
-    @Resource
-    VoucherSubjectSummaryDao voucherSubjectSummaryDao;
-    @Resource
-    VoucherSubjectRecordDao voucherSubjectRecordDao;
+
     @Resource
     DayCutTaskController dayCutTaskController;
+
     @Resource
-    VoucherSubjectItemDao voucherSubjectItemDao;
+    SubjectSummaryRepository subjectSummaryRepository;
+    @Resource
+    SubjectRecordRepository subjectRecordRepositoryImpl;
+    @Resource
+    SubjectItemRepository subjectItemRepository;
 
     /**
      * 任务ID
@@ -56,9 +58,9 @@ public class AccountBalanceSummaryTask implements DayCutTask {
     public void execute(String voucherDay, boolean isRetry) {
         dayCutTaskController.execute(() -> {
             //分页处理
-            Long maxId = voucherSubjectSummaryDao.selectMaxId(voucherDay);
+            Long maxId = subjectSummaryRepository.selectMaxId(voucherDay);
             maxId = maxId == null ? 0 : maxId;
-            Long minId = voucherSubjectSummaryDao.selectMinId(voucherDay);
+            Long minId = subjectSummaryRepository.selectMinId(voucherDay);
             minId = minId == null ? 0 : minId;
             int pageCount = (maxId == minId) ? 1 : (int) ((maxId - minId) / PAGE_SIZE);
             if ((maxId - minId) % PAGE_SIZE != 0) {
@@ -70,7 +72,7 @@ public class AccountBalanceSummaryTask implements DayCutTask {
             long endRow = maxId;
             log.info("分户账更新-会计日{}分户账统计，maxId={}，minId={}", voucherDay, maxId, minId);
             for (int i = 0; i < pageCount; ++i) {
-                List<VoucherSubjectSummaryEntity> list = voucherSubjectSummaryDao.selectByVoucherDate(voucherDay, startRow, endRow);
+                List<VoucherSubjectSummaryDO> list = subjectSummaryRepository.selectByVoucherDate(voucherDay, startRow, endRow);
                 log.info("分户账更新-查询分户账结束,voucherDay={},startRow={},endRow={},返回结果数目={}",
                         voucherDay, startRow, endRow, list.size());
 
@@ -82,11 +84,11 @@ public class AccountBalanceSummaryTask implements DayCutTask {
                     startRow = startRow - PAGE_SIZE <= minId ? minId : startRow - PAGE_SIZE;
                     endRow -= PAGE_SIZE;
                 }
-                for (VoucherSubjectSummaryEntity voucherSubjectSummaryEntity : list) {
+                for (VoucherSubjectSummaryDO voucherSubjectSummaryDO : list) {
                     try {
-                        sumaryNum = sumaryNum + recordSumaryTOAccout(voucherSubjectSummaryEntity, voucherDay);
+                        sumaryNum = sumaryNum + recordSumaryTOAccout(voucherSubjectSummaryDO, voucherDay);
                     } catch (Exception e) {
-                        log.error("账号[{}]汇总出现异常,subSummaryDO={}", voucherSubjectSummaryEntity.getAccountNo(), voucherSubjectSummaryEntity, e);
+                        log.error("账号[{}]汇总出现异常,subSummaryDO={}", voucherSubjectSummaryDO.getAccountNo(), voucherSubjectSummaryDO, e);
                     }
                 }
             }
@@ -98,14 +100,14 @@ public class AccountBalanceSummaryTask implements DayCutTask {
     /**
      * 根据 分录汇总分户账 借方贷方发生额，发生笔数、发生额和期末余额
      *
-     * @param voucherSubjectSummaryEntity
+     * @param voucherSubjectSummaryDO
      * @param voucherDay
      */
-    private long recordSumaryTOAccout(VoucherSubjectSummaryEntity voucherSubjectSummaryEntity, String voucherDay) {
+    private long recordSumaryTOAccout(VoucherSubjectSummaryDO voucherSubjectSummaryDO, String voucherDay) {
 
         long startTime = System.currentTimeMillis();
         //获取最大记录ID
-        Long num = voucherSubjectRecordDao.countSubjectRecordByVoucherDayAndAcctNo(voucherDay, voucherSubjectSummaryEntity.getAccountNo());
+        Long num = subjectRecordRepositoryImpl.countByVoucherDateAndAccountNo(voucherDay, voucherSubjectSummaryDO.getAccountNo());
         num = num == null ? 0 : num;
         long pageCount = (int) ((num) / PAGE_SIZE);
         if (num % PAGE_SIZE != 0) {
@@ -113,12 +115,12 @@ public class AccountBalanceSummaryTask implements DayCutTask {
         }
 
         long amount = 0L;
-        voucherSubjectSummaryEntity.setDebitAmount(0L);
-        voucherSubjectSummaryEntity.setCreditAmount(0L);
-        voucherSubjectSummaryEntity.setCreditCount(0L);
-        voucherSubjectSummaryEntity.setDebitCount(0L);
-        voucherSubjectSummaryEntity.setEndBalance(0L);
-        log.info("分户账更新-查询会计分录maxId,voucherDay={},accountNo={},num={}", voucherDay, voucherSubjectSummaryEntity.getAccountNo(), num);
+        voucherSubjectSummaryDO.setDebitAmount(0L);
+        voucherSubjectSummaryDO.setCreditAmount(0L);
+        voucherSubjectSummaryDO.setCreditCount(0L);
+        voucherSubjectSummaryDO.setDebitCount(0L);
+        voucherSubjectSummaryDO.setEndBalance(0L);
+        log.info("分户账更新-查询会计分录maxId,voucherDay={},accountNo={},num={}", voucherDay, voucherSubjectSummaryDO.getAccountNo(), num);
         long startSize = 0;
         long pageSize = num > PAGE_SIZE ? PAGE_SIZE : num;
         for (int i = 0; i < pageCount; ++i) {
@@ -126,44 +128,43 @@ public class AccountBalanceSummaryTask implements DayCutTask {
                 pageSize = num - startSize;
             }
             long time1 = System.currentTimeMillis();
-            List<VoucherSubjectRecordEntity> voucherSubjectRecords = voucherSubjectRecordDao.selectByVoucherDayAndAccountNo(voucherDay, voucherSubjectSummaryEntity.getAccountNo(), startSize, pageSize);
+            List<VoucherSubjectRecordDO> voucherSubjectRecords = subjectRecordRepositoryImpl.selectByVoucherDateAndAccountNo(voucherDay, voucherSubjectSummaryDO.getAccountNo(), startSize, pageSize);
 
             //汇总 借方发生额 贷方发生额
-            for (VoucherSubjectRecordEntity voucherSubjectRecordEntity : voucherSubjectRecords) {
+            for (VoucherSubjectRecordDO voucherSubjectRecordDO : voucherSubjectRecords) {
                 //借方余额,贷方余额
-                if (voucherSubjectRecordEntity.getRecordDir().equals(RecordDir.D.getId())) {
-                    voucherSubjectSummaryEntity.setDebitCount(voucherSubjectSummaryEntity.getDebitCount() + 1);
-                    voucherSubjectSummaryEntity.setDebitAmount(voucherSubjectSummaryEntity.getDebitAmount() + voucherSubjectRecordEntity.getAmount());
+                if (voucherSubjectRecordDO.getRecordDir().equals(RecordDir.D.getId())) {
+                    voucherSubjectSummaryDO.setDebitCount(voucherSubjectSummaryDO.getDebitCount() + 1);
+                    voucherSubjectSummaryDO.setDebitAmount(voucherSubjectSummaryDO.getDebitAmount() + voucherSubjectRecordDO.getAmount());
                 } else {
-                    voucherSubjectSummaryEntity.setCreditCount(voucherSubjectSummaryEntity.getCreditCount() + 1);
-                    voucherSubjectSummaryEntity.setCreditAmount(voucherSubjectSummaryEntity.getCreditAmount() + voucherSubjectRecordEntity.getAmount());
+                    voucherSubjectSummaryDO.setCreditCount(voucherSubjectSummaryDO.getCreditCount() + 1);
+                    voucherSubjectSummaryDO.setCreditAmount(voucherSubjectSummaryDO.getCreditAmount() + voucherSubjectRecordDO.getAmount());
                 }
 
             }
             log.info("分户账更新-查询会计分录列表结束,voucherDay={},acctNo={},startSize={},pageSize={},返回结果数目={},单次查询汇总耗时[{}]ms",
-                    voucherDay, voucherSubjectSummaryEntity.getAccountNo(), startSize, pageSize, voucherSubjectRecords.size(), (System.currentTimeMillis() - time1));
+                    voucherDay, voucherSubjectSummaryDO.getAccountNo(), startSize, pageSize, voucherSubjectRecords.size(), (System.currentTimeMillis() - time1));
 
             startSize = startSize + pageSize;
         }
         ////计算内部户发生额
-        VoucherSubjectItemEntity voucherSubjectItemEntity = voucherSubjectItemDao.selectByCode(voucherSubjectSummaryEntity.getSubjectCode());
-        if (null == voucherSubjectItemEntity || StringUtils.isEmpty(voucherSubjectItemEntity.getBalanceDir())) {
-            log.error("根据科目代码[{}]未获取到正确的科目余额方向", voucherSubjectItemEntity, voucherSubjectSummaryEntity.getSubjectCode());
+        VoucherSubjectItemDO voucherSubjectItemDO = subjectItemRepository.selectByCode(voucherSubjectSummaryDO.getSubjectCode());
+        if (null == voucherSubjectItemDO || StringUtils.isEmpty(voucherSubjectItemDO.getBalanceDir())) {
+            log.error("根据科目代码[{}]未获取到正确的科目余额方向", voucherSubjectItemDO, voucherSubjectSummaryDO.getSubjectCode());
         } else {
-            if (RecordDir.D.getId().equals(voucherSubjectItemEntity.getBalanceDir())) {
-                amount = voucherSubjectSummaryEntity.getDebitAmount() - voucherSubjectSummaryEntity.getCreditAmount();
+            if (RecordDir.D.getId().equals(voucherSubjectItemDO.getBalanceDir())) {
+                amount = voucherSubjectSummaryDO.getDebitAmount() - voucherSubjectSummaryDO.getCreditAmount();
             } else {
-                amount = voucherSubjectSummaryEntity.getCreditAmount() - voucherSubjectSummaryEntity.getDebitAmount();
+                amount = voucherSubjectSummaryDO.getCreditAmount() - voucherSubjectSummaryDO.getDebitAmount();
             }
         }
-        voucherSubjectSummaryEntity.setAmount(amount);
+        voucherSubjectSummaryDO.setAmount(amount);
         //计算内部户期末余额
-        voucherSubjectSummaryEntity.setEndBalance(voucherSubjectSummaryEntity.getBeginBalance() + amount);
-        voucherSubjectSummaryEntity.setUpdateTime(new Date());
-        log.info("recordSumaryTOAccout,voucherDay={},accountNo={},subSummaryParams={},耗时[{}]ms", voucherDay, voucherSubjectSummaryEntity.getAccountNo(), voucherSubjectSummaryEntity, (System.currentTimeMillis() - startTime));
+        voucherSubjectSummaryDO.setEndBalance(voucherSubjectSummaryDO.getBeginBalance() + amount);
+        voucherSubjectSummaryDO.setUpdateTime(new Date());
+        log.info("recordSumaryTOAccout,voucherDay={},accountNo={},subSummaryParams={},耗时[{}]ms", voucherDay, voucherSubjectSummaryDO.getAccountNo(), voucherSubjectSummaryDO, (System.currentTimeMillis() - startTime));
 
-        voucherSubjectSummaryDao.updateByPrimaryKey(voucherSubjectSummaryEntity);
-        //subSummaryRepositoryImpl.update(subSummaryParams);
+        subjectSummaryRepository.update(voucherSubjectSummaryDO);
         return num;
     }
 }

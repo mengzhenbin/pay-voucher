@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.dream.pay.voucher.dao.VoucherRecordConfigDOMapper" >
+  <resultMap id="BaseResultMap" type="com.dream.pay.voucher.model.VoucherRecordConfigDO" >
+    <constructor >
+      <idArg column="id" jdbcType="BIGINT" javaType="java.lang.Long" />
+      <arg column="voucher_code" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="channel_code" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="config_type" jdbcType="BIT" javaType="java.lang.Boolean" />
+      <arg column="debit_subject" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="debit_account" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="credit_subject" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="credit_account" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="able_flag" jdbcType="BIT" javaType="java.lang.Boolean" />
+      <arg column="remark" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="create_time" jdbcType="TIMESTAMP" javaType="java.util.Date" />
+      <arg column="update_time" jdbcType="TIMESTAMP" javaType="java.util.Date" />
+    </constructor>
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, voucher_code, channel_code, config_type, debit_subject, debit_account, credit_subject, 
+    credit_account, able_flag, remark, create_time, update_time
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from voucher_record_config
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from voucher_record_config
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.dream.pay.voucher.model.VoucherRecordConfigDO" >
+    insert into voucher_record_config (id, voucher_code, channel_code, 
+      config_type, debit_subject, debit_account, 
+      credit_subject, credit_account, able_flag, 
+      remark, create_time, update_time
+      )
+    values (#{id,jdbcType=BIGINT}, #{voucherCode,jdbcType=VARCHAR}, #{channelCode,jdbcType=VARCHAR}, 
+      #{configType,jdbcType=BIT}, #{debitSubject,jdbcType=VARCHAR}, #{debitAccount,jdbcType=VARCHAR}, 
+      #{creditSubject,jdbcType=VARCHAR}, #{creditAccount,jdbcType=VARCHAR}, #{ableFlag,jdbcType=BIT}, 
+      #{remark,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.dream.pay.voucher.model.VoucherRecordConfigDO" >
+    insert into voucher_record_config
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="voucherCode != null" >
+        voucher_code,
+      </if>
+      <if test="channelCode != null" >
+        channel_code,
+      </if>
+      <if test="configType != null" >
+        config_type,
+      </if>
+      <if test="debitSubject != null" >
+        debit_subject,
+      </if>
+      <if test="debitAccount != null" >
+        debit_account,
+      </if>
+      <if test="creditSubject != null" >
+        credit_subject,
+      </if>
+      <if test="creditAccount != null" >
+        credit_account,
+      </if>
+      <if test="ableFlag != null" >
+        able_flag,
+      </if>
+      <if test="remark != null" >
+        remark,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="voucherCode != null" >
+        #{voucherCode,jdbcType=VARCHAR},
+      </if>
+      <if test="channelCode != null" >
+        #{channelCode,jdbcType=VARCHAR},
+      </if>
+      <if test="configType != null" >
+        #{configType,jdbcType=BIT},
+      </if>
+      <if test="debitSubject != null" >
+        #{debitSubject,jdbcType=VARCHAR},
+      </if>
+      <if test="debitAccount != null" >
+        #{debitAccount,jdbcType=VARCHAR},
+      </if>
+      <if test="creditSubject != null" >
+        #{creditSubject,jdbcType=VARCHAR},
+      </if>
+      <if test="creditAccount != null" >
+        #{creditAccount,jdbcType=VARCHAR},
+      </if>
+      <if test="ableFlag != null" >
+        #{ableFlag,jdbcType=BIT},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.dream.pay.voucher.model.VoucherRecordConfigDO" >
+    update voucher_record_config
+    <set >
+      <if test="voucherCode != null" >
+        voucher_code = #{voucherCode,jdbcType=VARCHAR},
+      </if>
+      <if test="channelCode != null" >
+        channel_code = #{channelCode,jdbcType=VARCHAR},
+      </if>
+      <if test="configType != null" >
+        config_type = #{configType,jdbcType=BIT},
+      </if>
+      <if test="debitSubject != null" >
+        debit_subject = #{debitSubject,jdbcType=VARCHAR},
+      </if>
+      <if test="debitAccount != null" >
+        debit_account = #{debitAccount,jdbcType=VARCHAR},
+      </if>
+      <if test="creditSubject != null" >
+        credit_subject = #{creditSubject,jdbcType=VARCHAR},
+      </if>
+      <if test="creditAccount != null" >
+        credit_account = #{creditAccount,jdbcType=VARCHAR},
+      </if>
+      <if test="ableFlag != null" >
+        able_flag = #{ableFlag,jdbcType=BIT},
+      </if>
+      <if test="remark != null" >
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.dream.pay.voucher.model.VoucherRecordConfigDO" >
+    update voucher_record_config
+    set voucher_code = #{voucherCode,jdbcType=VARCHAR},
+      channel_code = #{channelCode,jdbcType=VARCHAR},
+      config_type = #{configType,jdbcType=BIT},
+      debit_subject = #{debitSubject,jdbcType=VARCHAR},
+      debit_account = #{debitAccount,jdbcType=VARCHAR},
+      credit_subject = #{creditSubject,jdbcType=VARCHAR},
+      credit_account = #{creditAccount,jdbcType=VARCHAR},
+      able_flag = #{ableFlag,jdbcType=BIT},
+      remark = #{remark,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+
+  <select id="selectByVoucherCode" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List"/>
+    from voucher_record_config where VOUCHER_CODE = #{voucherCode} and CHANNEL_CODE = #{channelCode} limit 1;
+  </select>
+</mapper>

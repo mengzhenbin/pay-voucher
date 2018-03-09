@@ -1,0 +1,237 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.dream.pay.voucher.dao.VoucherTotalSummaryDOMapper" >
+  <resultMap id="BaseResultMap" type="com.dream.pay.voucher.model.VoucherTotalSummaryDO" >
+    <constructor >
+      <idArg column="id" jdbcType="BIGINT" javaType="java.lang.Long" />
+      <arg column="subject_code" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="subject_name" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="subject_level" jdbcType="TINYINT" javaType="java.lang.Byte" />
+      <arg column="parent_subject_code" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="zeroFlag" jdbcType="BIT" javaType="java.lang.Boolean" />
+      <arg column="voucher_date" jdbcType="CHAR" javaType="java.lang.String" />
+      <arg column="currency" jdbcType="CHAR" javaType="java.lang.String" />
+      <arg column="balance_dir" jdbcType="CHAR" javaType="java.lang.String" />
+      <arg column="begin_balance" jdbcType="BIGINT" javaType="java.lang.Long" />
+      <arg column="debit_amount" jdbcType="BIGINT" javaType="java.lang.Long" />
+      <arg column="debit_count" jdbcType="BIGINT" javaType="java.lang.Long" />
+      <arg column="credit_amount" jdbcType="BIGINT" javaType="java.lang.Long" />
+      <arg column="credit_count" jdbcType="BIGINT" javaType="java.lang.Long" />
+      <arg column="end_balance" jdbcType="BIGINT" javaType="java.lang.Long" />
+      <arg column="create_time" jdbcType="TIMESTAMP" javaType="java.util.Date" />
+      <arg column="update_time" jdbcType="TIMESTAMP" javaType="java.util.Date" />
+    </constructor>
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, subject_code, subject_name, subject_level, parent_subject_code, zeroFlag, voucher_date, 
+    currency, balance_dir, begin_balance, debit_amount, debit_count, credit_amount, credit_count, 
+    end_balance, create_time, update_time
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from voucher_total_summary
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from voucher_total_summary
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.dream.pay.voucher.model.VoucherTotalSummaryDO" >
+    insert into voucher_total_summary (id, subject_code, subject_name, 
+      subject_level, parent_subject_code, zeroFlag, 
+      voucher_date, currency, balance_dir, 
+      begin_balance, debit_amount, debit_count, 
+      credit_amount, credit_count, end_balance, 
+      create_time, update_time)
+    values (#{id,jdbcType=BIGINT}, #{subjectCode,jdbcType=VARCHAR}, #{subjectName,jdbcType=VARCHAR}, 
+      #{subjectLevel,jdbcType=TINYINT}, #{parentSubjectCode,jdbcType=VARCHAR}, #{zeroflag,jdbcType=BIT}, 
+      #{voucherDate,jdbcType=CHAR}, #{currency,jdbcType=CHAR}, #{balanceDir,jdbcType=CHAR}, 
+      #{beginBalance,jdbcType=BIGINT}, #{debitAmount,jdbcType=BIGINT}, #{debitCount,jdbcType=BIGINT}, 
+      #{creditAmount,jdbcType=BIGINT}, #{creditCount,jdbcType=BIGINT}, #{endBalance,jdbcType=BIGINT}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.dream.pay.voucher.model.VoucherTotalSummaryDO" >
+    insert into voucher_total_summary
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="subjectCode != null" >
+        subject_code,
+      </if>
+      <if test="subjectName != null" >
+        subject_name,
+      </if>
+      <if test="subjectLevel != null" >
+        subject_level,
+      </if>
+      <if test="parentSubjectCode != null" >
+        parent_subject_code,
+      </if>
+      <if test="zeroflag != null" >
+        zeroFlag,
+      </if>
+      <if test="voucherDate != null" >
+        voucher_date,
+      </if>
+      <if test="currency != null" >
+        currency,
+      </if>
+      <if test="balanceDir != null" >
+        balance_dir,
+      </if>
+      <if test="beginBalance != null" >
+        begin_balance,
+      </if>
+      <if test="debitAmount != null" >
+        debit_amount,
+      </if>
+      <if test="debitCount != null" >
+        debit_count,
+      </if>
+      <if test="creditAmount != null" >
+        credit_amount,
+      </if>
+      <if test="creditCount != null" >
+        credit_count,
+      </if>
+      <if test="endBalance != null" >
+        end_balance,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="subjectCode != null" >
+        #{subjectCode,jdbcType=VARCHAR},
+      </if>
+      <if test="subjectName != null" >
+        #{subjectName,jdbcType=VARCHAR},
+      </if>
+      <if test="subjectLevel != null" >
+        #{subjectLevel,jdbcType=TINYINT},
+      </if>
+      <if test="parentSubjectCode != null" >
+        #{parentSubjectCode,jdbcType=VARCHAR},
+      </if>
+      <if test="zeroflag != null" >
+        #{zeroflag,jdbcType=BIT},
+      </if>
+      <if test="voucherDate != null" >
+        #{voucherDate,jdbcType=CHAR},
+      </if>
+      <if test="currency != null" >
+        #{currency,jdbcType=CHAR},
+      </if>
+      <if test="balanceDir != null" >
+        #{balanceDir,jdbcType=CHAR},
+      </if>
+      <if test="beginBalance != null" >
+        #{beginBalance,jdbcType=BIGINT},
+      </if>
+      <if test="debitAmount != null" >
+        #{debitAmount,jdbcType=BIGINT},
+      </if>
+      <if test="debitCount != null" >
+        #{debitCount,jdbcType=BIGINT},
+      </if>
+      <if test="creditAmount != null" >
+        #{creditAmount,jdbcType=BIGINT},
+      </if>
+      <if test="creditCount != null" >
+        #{creditCount,jdbcType=BIGINT},
+      </if>
+      <if test="endBalance != null" >
+        #{endBalance,jdbcType=BIGINT},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.dream.pay.voucher.model.VoucherTotalSummaryDO" >
+    update voucher_total_summary
+    <set >
+      <if test="subjectCode != null" >
+        subject_code = #{subjectCode,jdbcType=VARCHAR},
+      </if>
+      <if test="subjectName != null" >
+        subject_name = #{subjectName,jdbcType=VARCHAR},
+      </if>
+      <if test="subjectLevel != null" >
+        subject_level = #{subjectLevel,jdbcType=TINYINT},
+      </if>
+      <if test="parentSubjectCode != null" >
+        parent_subject_code = #{parentSubjectCode,jdbcType=VARCHAR},
+      </if>
+      <if test="zeroflag != null" >
+        zeroFlag = #{zeroflag,jdbcType=BIT},
+      </if>
+      <if test="voucherDate != null" >
+        voucher_date = #{voucherDate,jdbcType=CHAR},
+      </if>
+      <if test="currency != null" >
+        currency = #{currency,jdbcType=CHAR},
+      </if>
+      <if test="balanceDir != null" >
+        balance_dir = #{balanceDir,jdbcType=CHAR},
+      </if>
+      <if test="beginBalance != null" >
+        begin_balance = #{beginBalance,jdbcType=BIGINT},
+      </if>
+      <if test="debitAmount != null" >
+        debit_amount = #{debitAmount,jdbcType=BIGINT},
+      </if>
+      <if test="debitCount != null" >
+        debit_count = #{debitCount,jdbcType=BIGINT},
+      </if>
+      <if test="creditAmount != null" >
+        credit_amount = #{creditAmount,jdbcType=BIGINT},
+      </if>
+      <if test="creditCount != null" >
+        credit_count = #{creditCount,jdbcType=BIGINT},
+      </if>
+      <if test="endBalance != null" >
+        end_balance = #{endBalance,jdbcType=BIGINT},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.dream.pay.voucher.model.VoucherTotalSummaryDO" >
+    update voucher_total_summary
+    set subject_code = #{subjectCode,jdbcType=VARCHAR},
+      subject_name = #{subjectName,jdbcType=VARCHAR},
+      subject_level = #{subjectLevel,jdbcType=TINYINT},
+      parent_subject_code = #{parentSubjectCode,jdbcType=VARCHAR},
+      zeroFlag = #{zeroflag,jdbcType=BIT},
+      voucher_date = #{voucherDate,jdbcType=CHAR},
+      currency = #{currency,jdbcType=CHAR},
+      balance_dir = #{balanceDir,jdbcType=CHAR},
+      begin_balance = #{beginBalance,jdbcType=BIGINT},
+      debit_amount = #{debitAmount,jdbcType=BIGINT},
+      debit_count = #{debitCount,jdbcType=BIGINT},
+      credit_amount = #{creditAmount,jdbcType=BIGINT},
+      credit_count = #{creditCount,jdbcType=BIGINT},
+      end_balance = #{endBalance,jdbcType=BIGINT},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

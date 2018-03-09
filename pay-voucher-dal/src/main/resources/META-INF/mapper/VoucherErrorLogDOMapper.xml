@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.dream.pay.voucher.dao.VoucherErrorLogDOMapper" >
+  <resultMap id="BaseResultMap" type="com.dream.pay.voucher.model.VoucherErrorLogDO" >
+    <constructor >
+      <idArg column="id" jdbcType="BIGINT" javaType="java.lang.Long" />
+      <arg column="voucher_date" jdbcType="CHAR" javaType="java.lang.String" />
+      <arg column="account_no" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="error_type" jdbcType="BIT" javaType="java.lang.Boolean" />
+      <arg column="error_code" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="error_src" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="error_desc" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="create_time" jdbcType="TIMESTAMP" javaType="java.util.Date" />
+      <arg column="update_time" jdbcType="TIMESTAMP" javaType="java.util.Date" />
+    </constructor>
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, voucher_date, account_no, error_type, error_code, error_src, error_desc, create_time, 
+    update_time
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from voucher_error_log
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from voucher_error_log
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.dream.pay.voucher.model.VoucherErrorLogDO" >
+    insert into voucher_error_log (id, voucher_date, account_no, 
+      error_type, error_code, error_src, 
+      error_desc, create_time, update_time
+      )
+    values (#{id,jdbcType=BIGINT}, #{voucherDate,jdbcType=CHAR}, #{accountNo,jdbcType=VARCHAR}, 
+      #{errorType,jdbcType=BIT}, #{errorCode,jdbcType=VARCHAR}, #{errorSrc,jdbcType=VARCHAR}, 
+      #{errorDesc,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.dream.pay.voucher.model.VoucherErrorLogDO" >
+    insert into voucher_error_log
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="voucherDate != null" >
+        voucher_date,
+      </if>
+      <if test="accountNo != null" >
+        account_no,
+      </if>
+      <if test="errorType != null" >
+        error_type,
+      </if>
+      <if test="errorCode != null" >
+        error_code,
+      </if>
+      <if test="errorSrc != null" >
+        error_src,
+      </if>
+      <if test="errorDesc != null" >
+        error_desc,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="voucherDate != null" >
+        #{voucherDate,jdbcType=CHAR},
+      </if>
+      <if test="accountNo != null" >
+        #{accountNo,jdbcType=VARCHAR},
+      </if>
+      <if test="errorType != null" >
+        #{errorType,jdbcType=BIT},
+      </if>
+      <if test="errorCode != null" >
+        #{errorCode,jdbcType=VARCHAR},
+      </if>
+      <if test="errorSrc != null" >
+        #{errorSrc,jdbcType=VARCHAR},
+      </if>
+      <if test="errorDesc != null" >
+        #{errorDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.dream.pay.voucher.model.VoucherErrorLogDO" >
+    update voucher_error_log
+    <set >
+      <if test="voucherDate != null" >
+        voucher_date = #{voucherDate,jdbcType=CHAR},
+      </if>
+      <if test="accountNo != null" >
+        account_no = #{accountNo,jdbcType=VARCHAR},
+      </if>
+      <if test="errorType != null" >
+        error_type = #{errorType,jdbcType=BIT},
+      </if>
+      <if test="errorCode != null" >
+        error_code = #{errorCode,jdbcType=VARCHAR},
+      </if>
+      <if test="errorSrc != null" >
+        error_src = #{errorSrc,jdbcType=VARCHAR},
+      </if>
+      <if test="errorDesc != null" >
+        error_desc = #{errorDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.dream.pay.voucher.model.VoucherErrorLogDO" >
+    update voucher_error_log
+    set voucher_date = #{voucherDate,jdbcType=CHAR},
+      account_no = #{accountNo,jdbcType=VARCHAR},
+      error_type = #{errorType,jdbcType=BIT},
+      error_code = #{errorCode,jdbcType=VARCHAR},
+      error_src = #{errorSrc,jdbcType=VARCHAR},
+      error_desc = #{errorDesc,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

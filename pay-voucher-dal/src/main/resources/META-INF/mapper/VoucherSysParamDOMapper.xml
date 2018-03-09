@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.dream.pay.voucher.dao.VoucherSysParamDOMapper">
+    <resultMap id="BaseResultMap" type="com.dream.pay.voucher.model.VoucherSysParamDO">
+        <constructor>
+            <idArg column="id" jdbcType="BIGINT" javaType="java.lang.Long"/>
+            <arg column="sys_code" jdbcType="VARCHAR" javaType="java.lang.String"/>
+            <arg column="sys_value" jdbcType="VARCHAR" javaType="java.lang.String"/>
+            <arg column="param_desc" jdbcType="VARCHAR" javaType="java.lang.String"/>
+            <arg column="create_time" jdbcType="TIMESTAMP" javaType="java.util.Date"/>
+            <arg column="update_time" jdbcType="TIMESTAMP" javaType="java.util.Date"/>
+        </constructor>
+    </resultMap>
+    <sql id="Base_Column_List">
+        id, sys_code, sys_value, param_desc, create_time, update_time
+    </sql>
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long">
+        select
+        <include refid="Base_Column_List"/>
+        from voucher_sys_param
+        where id = #{id,jdbcType=BIGINT}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+        delete from voucher_sys_param
+        where id = #{id,jdbcType=BIGINT}
+    </delete>
+    <insert id="insert" parameterType="com.dream.pay.voucher.model.VoucherSysParamDO">
+        insert into voucher_sys_param (id, sys_code, sys_value,
+        param_desc, create_time, update_time
+        )
+        values (#{id,jdbcType=BIGINT}, #{sysCode,jdbcType=VARCHAR}, #{sysValue,jdbcType=VARCHAR},
+        #{paramDesc,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}
+        )
+    </insert>
+    <insert id="insertSelective" parameterType="com.dream.pay.voucher.model.VoucherSysParamDO">
+        insert into voucher_sys_param
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                id,
+            </if>
+            <if test="sysCode != null">
+                sys_code,
+            </if>
+            <if test="sysValue != null">
+                sys_value,
+            </if>
+            <if test="paramDesc != null">
+                param_desc,
+            </if>
+            <if test="createTime != null">
+                create_time,
+            </if>
+            <if test="updateTime != null">
+                update_time,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id,jdbcType=BIGINT},
+            </if>
+            <if test="sysCode != null">
+                #{sysCode,jdbcType=VARCHAR},
+            </if>
+            <if test="sysValue != null">
+                #{sysValue,jdbcType=VARCHAR},
+            </if>
+            <if test="paramDesc != null">
+                #{paramDesc,jdbcType=VARCHAR},
+            </if>
+            <if test="createTime != null">
+                #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updateTime != null">
+                #{updateTime,jdbcType=TIMESTAMP},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.dream.pay.voucher.model.VoucherSysParamDO">
+        update voucher_sys_param
+        <set>
+            <if test="sysCode != null">
+                sys_code = #{sysCode,jdbcType=VARCHAR},
+            </if>
+            <if test="sysValue != null">
+                sys_value = #{sysValue,jdbcType=VARCHAR},
+            </if>
+            <if test="paramDesc != null">
+                param_desc = #{paramDesc,jdbcType=VARCHAR},
+            </if>
+            <if test="createTime != null">
+                create_time = #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updateTime != null">
+                update_time = #{updateTime,jdbcType=TIMESTAMP},
+            </if>
+        </set>
+        where id = #{id,jdbcType=BIGINT}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.dream.pay.voucher.model.VoucherSysParamDO">
+        update voucher_sys_param
+        set sys_code = #{sysCode,jdbcType=VARCHAR},
+        sys_value = #{sysValue,jdbcType=VARCHAR},
+        param_desc = #{paramDesc,jdbcType=VARCHAR},
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+        update_time = #{updateTime,jdbcType=TIMESTAMP}
+        where id = #{id,jdbcType=BIGINT}
+    </update>
+
+    <select id="getBySysCode" parameterType="java.lang.String" resultMap="BaseResultMap">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM `voucher_sys_param` WHERE `SYS_CODE` = #{sysCode} limit 1;
+    </select>
+
+    <update id="updateSysValue" parameterType="com.dream.pay.voucher.model.VoucherSysParamDO" >
+
+        UPDATE `voucher_sys_param`
+        <set>
+            `SYS_VALUE`= #{sysValue},
+            `UPDATE_TIME`= #{updateTime}
+        </set>
+        where `SYS_CODE` =#{sysCode}
+    </update>
+
+</mapper>

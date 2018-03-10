@@ -24,12 +24,12 @@ public interface SubjectSummaryRepository {
     /**
      * 查询最大记录数
      */
-    long selectMaxIdBySubjectCode(String voucherDate,String subjectCode);
+    long selectMaxIdBySubjectCode(String voucherDate, String subjectCode);
 
     /**
      * 查询最大记录数
      */
-    long selectMinIdBySubjectCode(String voucherDate,String subjectCode);
+    long selectMinIdBySubjectCode(String voucherDate, String subjectCode);
 
 
     /**
@@ -56,7 +56,22 @@ public interface SubjectSummaryRepository {
      *
      * @param voucherSubjectSummaryDO 更新汇总余额
      */
-    int update(VoucherSubjectSummaryDO voucherSubjectSummaryDO);
+    Integer update(VoucherSubjectSummaryDO voucherSubjectSummaryDO);
 
 
+    /**
+     * 插入记录
+     *
+     * @param voucherSubjectSummaryDO
+     */
+    Integer insert(VoucherSubjectSummaryDO voucherSubjectSummaryDO);
+
+    /**
+     * 更新期初余额
+     *
+     * @param voucherDate
+     * @param accountNo
+     * @param beginBalance
+     */
+    Integer updateBeginBalance(String voucherDate, String accountNo, Long beginBalance);
 }

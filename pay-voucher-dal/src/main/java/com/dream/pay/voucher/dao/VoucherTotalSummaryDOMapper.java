@@ -25,4 +25,8 @@ public interface VoucherTotalSummaryDOMapper {
 
     VoucherTotalSummaryDO getByVoucherDateAndSubjectCode(@Param("voucherDate") String voucherDate,
                                                          @Param("subjectCode") String subjectCode);
+
+    Integer updateBeginBalance(@Param("voucherDate") String voucherDate,
+                            @Param("subjectCode") String subjectCode,
+                            @Param("beginBalance") Long beginBalance);
 }

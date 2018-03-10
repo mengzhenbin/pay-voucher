@@ -43,6 +43,11 @@ public class TotalSummaryRepositoryImpl implements TotalSummaryRepository {
     }
 
     @Override
+    public Integer updateBeginBalance(String voucherDate, String subjectCode, Long beginBalance) {
+        return voucherTotalSummaryDao.updateBeginBalance(voucherDate, subjectCode, beginBalance);
+    }
+
+    @Override
     public VoucherTotalSummaryDO selectByVoucherDateDateAndSubjectCode(String accountingDate, String subjectCode) {
         return voucherTotalSummaryDao.getByVoucherDateAndSubjectCode(accountingDate, subjectCode);
     }

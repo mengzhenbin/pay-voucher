@@ -6,6 +6,7 @@ import com.dream.pay.voucher.repository.SubjectSummaryRepository;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -39,7 +40,7 @@ public class SubjectSummaryRepositoryImpl implements SubjectSummaryRepository {
 
     @Override
     public long selectMaxIdBySubjectCode(String voucherDate, String subjectCode) {
-        Long maxId = voucherSubjectSummaryDao.selectMaxIdBySubjectCode(voucherDate,subjectCode);
+        Long maxId = voucherSubjectSummaryDao.selectMaxIdBySubjectCode(voucherDate, subjectCode);
         if (maxId == null) {
             return 0;
         } else {
@@ -49,7 +50,7 @@ public class SubjectSummaryRepositoryImpl implements SubjectSummaryRepository {
 
     @Override
     public long selectMinIdBySubjectCode(String voucherDate, String subjectCode) {
-        Long minId = voucherSubjectSummaryDao.selectMinIdBySubjectCode(voucherDate,subjectCode);
+        Long minId = voucherSubjectSummaryDao.selectMinIdBySubjectCode(voucherDate, subjectCode);
         if (minId == null) {
             return 0;
         } else {
@@ -68,7 +69,19 @@ public class SubjectSummaryRepositoryImpl implements SubjectSummaryRepository {
     }
 
     @Override
-    public int update(VoucherSubjectSummaryDO voucherSubjectSummaryDO) {
+    public Integer update(VoucherSubjectSummaryDO voucherSubjectSummaryDO) {
         return voucherSubjectSummaryDao.updateByPrimaryKey(voucherSubjectSummaryDO);
+    }
+
+    @Override
+    public Integer insert(VoucherSubjectSummaryDO voucherSubjectSummaryDO) {
+        voucherSubjectSummaryDO.setCreateTime(new Date());
+        voucherSubjectSummaryDO.setUpdateTime(new Date());
+        return voucherSubjectSummaryDao.insert(voucherSubjectSummaryDO);
+    }
+
+    @Override
+    public Integer updateBeginBalance(String nextDay, String accountNo, Long beginBalance) {
+        return voucherSubjectSummaryDao.updateBeginBalance(nextDay, accountNo, beginBalance);
     }
 }

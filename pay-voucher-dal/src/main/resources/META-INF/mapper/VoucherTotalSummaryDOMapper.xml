@@ -259,4 +259,15 @@
         and `SUBJECT_CODE` =#{subjectCode}
     </select>
 
+    <update id="updateBegBalance">
+
+        UPDATE `voucher_total_summary`
+        <set>
+            `BEG_BALANCE` = #{beginBalance},
+            `UPDATE_TIME` = now()
+        </set>
+        where `ACCOUNT_NO` =#{accountNo}
+        and `VOUCHER_DATE` =#{voucherDate}
+    </update>
+
 </mapper>

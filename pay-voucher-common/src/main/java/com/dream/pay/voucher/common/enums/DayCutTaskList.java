@@ -20,8 +20,8 @@ public enum DayCutTaskList {
     DEBIT_AND_CREDIT_CHECK_TASK(5, "借贷试算平衡任务"),
     SUB_ACCOUNT_AMOUNT_CHECK_TASK(6, "分户发生额试算平衡任务"),
     SUBJECT_AMOUNT_CHECK_TASK(7, "科目发生额试算平衡任务"),
-    ACCT_BALANCE_MOVE_TASK(8, "分户下一日期初余额更新任务"),
-    SUBJECT_BALANCE_MOVE_TASK(9, "科目下一日期初余额更新任务"),
+    ACCOUNT_BALANCE_INIT_TASK(8, "分户下一日期初余额更新任务"),
+    SUBJECT_BALANCE_INIT_TASK(9, "科目下一日期初余额更新任务"),
     END_DAY_CUT_TASK(10, "会计日期切换任务");
 
     private int id;

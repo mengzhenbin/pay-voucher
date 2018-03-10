@@ -49,4 +49,12 @@ public interface TotalSummaryRepository {
      */
     public long updateBalance(VoucherTotalSummaryDO voucherTotalSummaryDO);
 
+    /**
+     * 更新期初余额
+     *
+     * @param voucherDate
+     * @param subjectCode
+     * @param beginBalance
+     */
+    Integer updateBeginBalance(String voucherDate, String subjectCode, Long beginBalance);
 }

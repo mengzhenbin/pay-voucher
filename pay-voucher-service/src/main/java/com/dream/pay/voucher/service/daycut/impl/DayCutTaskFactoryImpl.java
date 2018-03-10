@@ -17,10 +17,7 @@ import javax.annotation.Resource;
 @Component
 public class DayCutTaskFactoryImpl implements DayCutTaskFactory {
 
-    //    @Resource
-//    AcctBalanceMoveTask acctBalanceMoveTask;
-//    @Resource
-//    SubjectBalanceMoveTask subjectBalanceMoveTask;
+
     @Resource
     StartDayCutTask startDayCutTask;
     @Resource
@@ -31,16 +28,16 @@ public class DayCutTaskFactoryImpl implements DayCutTaskFactory {
     SubjectAmountSummaryTask subjectAmountSummaryTask;
     @Resource
     DebitAndCreditCheckTask debitAndCreditCheckTask;
-    //    @Resource
-//    SubAcctAmountCheckTask subAcctAmountCheckTask;
-//    @Resource
-//    SubjectAmountCheckTask subjectAmountCheckTask;
+    @Resource
+    SubAccountAmountCheckTask subAccountAmountCheckTask;
+    @Resource
+    SubjectAmountCheckTask subjectAmountCheckTask;
+    @Resource
+    AccountBalanceInitTask accountBalanceInitTask;
+    @Resource
+    SubjectBalanceInitTask subjectBalanceInitTask;
     @Resource
     EndDayCutTask endDayCutTask;
-
-
-//    @Resource
-//    SubjectAmountSummaryTask subjectAmountSummaryTask;
 
     public DayCutTask getTask(int taskId) {
 
@@ -58,35 +55,35 @@ public class DayCutTaskFactoryImpl implements DayCutTaskFactory {
         if (taskId == DayCutTaskList.INNER_ACCOUNT_BALANCE_SUMMARY_TASK.getId()) {
             return accountBalanceSummaryTask;
         }
+
+        //科目余额汇总任务
         if (taskId == DayCutTaskList.SUBJECT_AMOUNT_SUMMARY_TASK.getId()) {
             return subjectAmountSummaryTask;
         }
-//
+
         //借贷试算平衡任务
         if (taskId == DayCutTaskList.DEBIT_AND_CREDIT_CHECK_TASK.getId()) {
             return debitAndCreditCheckTask;
         }
-//
-//        //
 
-//
-//        //分户发生额试算平衡
-//        if (taskId == DayCutTaskList.SUB_ACCT_AMOUNT_CHECK_TASK.getId()) {
-//            return subAcctAmountCheckTask;
-//        }
-//        //科目发生额试算平衡
-//        if (taskId == DayCutTaskList.SUBJECT_AMOUNT_CHECK_TASK.getId()) {
-//            return subjectAmountCheckTask;
-//        }
-//
-//        //分户期初余额更新任务
-//        if (taskId == DayCutTaskList.ACCT_BALANCE_MOVE_TASK.getId()) {
-//            return acctBalanceMoveTask;
-//        }
-//        //科目期初余额更新任务
-//        if (taskId == DayCutTaskList.SUBJECT_BALANCE_MOVE_TASK.getId()) {
-//            return subjectBalanceMoveTask;
-//        }
+        //分户发生额试算平衡
+        if (taskId == DayCutTaskList.SUB_ACCOUNT_AMOUNT_CHECK_TASK.getId()) {
+            return subAccountAmountCheckTask;
+        }
+        //科目发生额试算平衡
+        if (taskId == DayCutTaskList.SUBJECT_AMOUNT_CHECK_TASK.getId()) {
+            return subjectAmountCheckTask;
+        }
+
+        //分户期初余额更新任务
+        if (taskId == DayCutTaskList.ACCOUNT_BALANCE_INIT_TASK.getId()) {
+            return accountBalanceInitTask;
+        }
+        //科目期初余额更新任务
+        if (taskId == DayCutTaskList.SUBJECT_BALANCE_INIT_TASK.getId()) {
+            return subjectBalanceInitTask;
+        }
+
         //会计日期切换任务
         if (taskId == DayCutTaskList.END_DAY_CUT_TASK.getId()) {
             return endDayCutTask;

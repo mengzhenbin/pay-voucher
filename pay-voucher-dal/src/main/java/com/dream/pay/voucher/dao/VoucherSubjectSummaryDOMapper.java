@@ -36,4 +36,8 @@ public interface VoucherSubjectSummaryDOMapper {
 
     Long selectMinIdBySubjectCode(@Param("voucherDate") String voucherDate,
                                   @Param("subjectCode") String subjectCode);
+
+    Integer updateBeginBalance(@Param("voucherDate") String voucherDate,
+                               @Param("accountNo")String accountNo,
+                               @Param("beginBalance")Long beginBalance);
 }

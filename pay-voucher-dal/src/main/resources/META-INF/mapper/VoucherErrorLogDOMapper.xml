@@ -6,7 +6,7 @@
       <idArg column="id" jdbcType="BIGINT" javaType="java.lang.Long" />
       <arg column="voucher_date" jdbcType="CHAR" javaType="java.lang.String" />
       <arg column="account_no" jdbcType="VARCHAR" javaType="java.lang.String" />
-      <arg column="error_type" jdbcType="BIT" javaType="java.lang.Boolean" />
+      <arg column="error_type" jdbcType="INTEGER" javaType="java.lang.Integer" />
       <arg column="error_code" jdbcType="VARCHAR" javaType="java.lang.String" />
       <arg column="error_src" jdbcType="VARCHAR" javaType="java.lang.String" />
       <arg column="error_desc" jdbcType="VARCHAR" javaType="java.lang.String" />
@@ -34,7 +34,7 @@
       error_desc, create_time, update_time
       )
     values (#{id,jdbcType=BIGINT}, #{voucherDate,jdbcType=CHAR}, #{accountNo,jdbcType=VARCHAR}, 
-      #{errorType,jdbcType=BIT}, #{errorCode,jdbcType=VARCHAR}, #{errorSrc,jdbcType=VARCHAR}, 
+      #{errorType,jdbcType=INTEGER}, #{errorCode,jdbcType=VARCHAR}, #{errorSrc,jdbcType=VARCHAR},
       #{errorDesc,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}
       )
   </insert>
@@ -80,7 +80,7 @@
         #{accountNo,jdbcType=VARCHAR},
       </if>
       <if test="errorType != null" >
-        #{errorType,jdbcType=BIT},
+        #{errorType,jdbcType=INTEGER},
       </if>
       <if test="errorCode != null" >
         #{errorCode,jdbcType=VARCHAR},
@@ -109,7 +109,7 @@
         account_no = #{accountNo,jdbcType=VARCHAR},
       </if>
       <if test="errorType != null" >
-        error_type = #{errorType,jdbcType=BIT},
+        error_type = #{errorType,jdbcType=INTEGER},
       </if>
       <if test="errorCode != null" >
         error_code = #{errorCode,jdbcType=VARCHAR},
@@ -133,7 +133,7 @@
     update voucher_error_log
     set voucher_date = #{voucherDate,jdbcType=CHAR},
       account_no = #{accountNo,jdbcType=VARCHAR},
-      error_type = #{errorType,jdbcType=BIT},
+      error_type = #{errorType,jdbcType=INTEGER},
       error_code = #{errorCode,jdbcType=VARCHAR},
       error_src = #{errorSrc,jdbcType=VARCHAR},
       error_desc = #{errorDesc,jdbcType=VARCHAR},

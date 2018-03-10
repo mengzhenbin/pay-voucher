@@ -29,7 +29,17 @@ public class SubjectSummaryRepositoryImpl implements SubjectSummaryRepository {
 
     @Override
     public long selectMinId(String voucherDate) {
-        Long maxId = voucherSubjectSummaryDao.selectMinId(voucherDate);
+        Long minId = voucherSubjectSummaryDao.selectMinId(voucherDate);
+        if (minId == null) {
+            return 0;
+        } else {
+            return minId;
+        }
+    }
+
+    @Override
+    public long selectMaxIdBySubjectCode(String voucherDate, String subjectCode) {
+        Long maxId = voucherSubjectSummaryDao.selectMaxIdBySubjectCode(voucherDate,subjectCode);
         if (maxId == null) {
             return 0;
         } else {
@@ -38,8 +48,23 @@ public class SubjectSummaryRepositoryImpl implements SubjectSummaryRepository {
     }
 
     @Override
+    public long selectMinIdBySubjectCode(String voucherDate, String subjectCode) {
+        Long minId = voucherSubjectSummaryDao.selectMinIdBySubjectCode(voucherDate,subjectCode);
+        if (minId == null) {
+            return 0;
+        } else {
+            return minId;
+        }
+    }
+
+    @Override
     public List<VoucherSubjectSummaryDO> selectByVoucherDate(String voucherDate, long startRow, long endRow) {
         return voucherSubjectSummaryDao.selectByVoucherDate(voucherDate, startRow, endRow);
+    }
+
+    @Override
+    public List<VoucherSubjectSummaryDO> selectByVoucherDateAndSubjectCode(String voucherDate, String subjectCode, long startRow, long endRow) {
+        return voucherSubjectSummaryDao.selectByVoucherDateAndSubjectCode(voucherDate, subjectCode, startRow, endRow);
     }
 
     @Override

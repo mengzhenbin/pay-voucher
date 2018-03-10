@@ -42,12 +42,12 @@ public class AccountBalanceSummaryTask implements DayCutTask {
     /**
      * 任务ID
      */
-    private static final int TASK_ID = DayCutTaskList.INNER_ACCT_BALANCE_SUMMARY_TASK.getId();
+    private static final int TASK_ID = DayCutTaskList.INNER_ACCOUNT_BALANCE_SUMMARY_TASK.getId();
 
     /**
      * 任务名称
      */
-    private static final String TASK_NAME = DayCutTaskList.INNER_ACCT_BALANCE_SUMMARY_TASK.getName();
+    private static final String TASK_NAME = DayCutTaskList.INNER_ACCOUNT_BALANCE_SUMMARY_TASK.getName();
 
     /**
      * 分页读取最大数据量
@@ -59,9 +59,7 @@ public class AccountBalanceSummaryTask implements DayCutTask {
         dayCutTaskController.execute(() -> {
             //分页处理
             Long maxId = subjectSummaryRepository.selectMaxId(voucherDay);
-            maxId = maxId == null ? 0 : maxId;
             Long minId = subjectSummaryRepository.selectMinId(voucherDay);
-            minId = minId == null ? 0 : minId;
             int pageCount = (maxId == minId) ? 1 : (int) ((maxId - minId) / PAGE_SIZE);
             if ((maxId - minId) % PAGE_SIZE != 0) {
                 pageCount = pageCount + 1;

@@ -17,7 +17,7 @@ public class VoucherErrorLogDO {
 
     private String accountNo;
 
-    private Boolean errorType;
+    private Integer errorType;
 
     private String errorCode;
 

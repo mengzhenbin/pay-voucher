@@ -25,4 +25,15 @@ public interface VoucherSubjectSummaryDOMapper {
     List<VoucherSubjectSummaryDO> selectByVoucherDate(@Param("voucherDate") String voucherDate,
                                                       @Param("startRow") long startRow,
                                                       @Param("endRow") long endRow);
+
+    List<VoucherSubjectSummaryDO> selectByVoucherDateAndSubjectCode(@Param("voucherDate") String voucherDate,
+                                                                    @Param("subjectCode") String subjectCode,
+                                                                    @Param("startRow") long startRow,
+                                                                    @Param("endRow") long endRow);
+
+    Long selectMaxIdBySubjectCode(@Param("voucherDate") String voucherDate,
+                                  @Param("subjectCode") String subjectCode);
+
+    Long selectMinIdBySubjectCode(@Param("voucherDate") String voucherDate,
+                                  @Param("subjectCode") String subjectCode);
 }

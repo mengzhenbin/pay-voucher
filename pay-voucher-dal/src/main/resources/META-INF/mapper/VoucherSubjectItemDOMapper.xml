@@ -5,16 +5,16 @@
     <constructor >
       <idArg column="id" jdbcType="BIGINT" javaType="java.lang.Long" />
       <arg column="subject_code" jdbcType="VARCHAR" javaType="java.lang.String" />
-      <arg column="subject_type" jdbcType="BIT" javaType="java.lang.Boolean" />
-      <arg column="subject_level" jdbcType="BIT" javaType="java.lang.Boolean" />
+      <arg column="subject_type" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="subject_level" jdbcType="INTEGER" javaType="java.lang.Integer" />
       <arg column="subject_name" jdbcType="VARCHAR" javaType="java.lang.String" />
       <arg column="subject_abb_name" jdbcType="VARCHAR" javaType="java.lang.String" />
       <arg column="parents_code" jdbcType="VARCHAR" javaType="java.lang.String" />
       <arg column="balance_dir" jdbcType="CHAR" javaType="java.lang.String" />
       <arg column="enable_date" jdbcType="CHAR" javaType="java.lang.String" />
       <arg column="unable_date" jdbcType="CHAR" javaType="java.lang.String" />
-      <arg column="over_flag" jdbcType="BIT" javaType="java.lang.Boolean" />
-      <arg column="active_flag" jdbcType="BIT" javaType="java.lang.Boolean" />
+      <arg column="over_flag" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="active_flag" jdbcType="INTEGER" javaType="java.lang.Integer" />
       <arg column="create_time" jdbcType="TIMESTAMP" javaType="java.util.Date" />
       <arg column="update_time" jdbcType="TIMESTAMP" javaType="java.util.Date" />
     </constructor>
@@ -39,10 +39,10 @@
       parents_code, balance_dir, enable_date, 
       unable_date, over_flag, active_flag, 
       create_time, update_time)
-    values (#{id,jdbcType=BIGINT}, #{subjectCode,jdbcType=VARCHAR}, #{subjectType,jdbcType=BIT}, 
-      #{subjectLevel,jdbcType=BIT}, #{subjectName,jdbcType=VARCHAR}, #{subjectAbbName,jdbcType=VARCHAR}, 
+    values (#{id,jdbcType=BIGINT}, #{subjectCode,jdbcType=VARCHAR}, #{subjectType,jdbcType=INTEGER},
+      #{subjectLevel,jdbcType=INTEGER}, #{subjectName,jdbcType=VARCHAR}, #{subjectAbbName,jdbcType=VARCHAR},
       #{parentsCode,jdbcType=VARCHAR}, #{balanceDir,jdbcType=CHAR}, #{enableDate,jdbcType=CHAR}, 
-      #{unableDate,jdbcType=CHAR}, #{overFlag,jdbcType=BIT}, #{activeFlag,jdbcType=BIT}, 
+      #{unableDate,jdbcType=CHAR}, #{overFlag,jdbcType=INTEGER}, #{activeFlag,jdbcType=INTEGER},
       #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP})
   </insert>
   <insert id="insertSelective" parameterType="com.dream.pay.voucher.model.VoucherSubjectItemDO" >
@@ -99,10 +99,10 @@
         #{subjectCode,jdbcType=VARCHAR},
       </if>
       <if test="subjectType != null" >
-        #{subjectType,jdbcType=BIT},
+        #{subjectType,jdbcType=INTEGER},
       </if>
       <if test="subjectLevel != null" >
-        #{subjectLevel,jdbcType=BIT},
+        #{subjectLevel,jdbcType=INTEGER},
       </if>
       <if test="subjectName != null" >
         #{subjectName,jdbcType=VARCHAR},
@@ -123,10 +123,10 @@
         #{unableDate,jdbcType=CHAR},
       </if>
       <if test="overFlag != null" >
-        #{overFlag,jdbcType=BIT},
+        #{overFlag,jdbcType=INTEGER},
       </if>
       <if test="activeFlag != null" >
-        #{activeFlag,jdbcType=BIT},
+        #{activeFlag,jdbcType=INTEGER},
       </if>
       <if test="createTime != null" >
         #{createTime,jdbcType=TIMESTAMP},
@@ -143,10 +143,10 @@
         subject_code = #{subjectCode,jdbcType=VARCHAR},
       </if>
       <if test="subjectType != null" >
-        subject_type = #{subjectType,jdbcType=BIT},
+        subject_type = #{subjectType,jdbcType=INTEGER},
       </if>
       <if test="subjectLevel != null" >
-        subject_level = #{subjectLevel,jdbcType=BIT},
+        subject_level = #{subjectLevel,jdbcType=INTEGER},
       </if>
       <if test="subjectName != null" >
         subject_name = #{subjectName,jdbcType=VARCHAR},
@@ -167,10 +167,10 @@
         unable_date = #{unableDate,jdbcType=CHAR},
       </if>
       <if test="overFlag != null" >
-        over_flag = #{overFlag,jdbcType=BIT},
+        over_flag = #{overFlag,jdbcType=INTEGER},
       </if>
       <if test="activeFlag != null" >
-        active_flag = #{activeFlag,jdbcType=BIT},
+        active_flag = #{activeFlag,jdbcType=INTEGER},
       </if>
       <if test="createTime != null" >
         create_time = #{createTime,jdbcType=TIMESTAMP},
@@ -184,16 +184,16 @@
   <update id="updateByPrimaryKey" parameterType="com.dream.pay.voucher.model.VoucherSubjectItemDO" >
     update voucher_subject_item
     set subject_code = #{subjectCode,jdbcType=VARCHAR},
-      subject_type = #{subjectType,jdbcType=BIT},
-      subject_level = #{subjectLevel,jdbcType=BIT},
+      subject_type = #{subjectType,jdbcType=INTEGER},
+      subject_level = #{subjectLevel,jdbcType=INTEGER},
       subject_name = #{subjectName,jdbcType=VARCHAR},
       subject_abb_name = #{subjectAbbName,jdbcType=VARCHAR},
       parents_code = #{parentsCode,jdbcType=VARCHAR},
       balance_dir = #{balanceDir,jdbcType=CHAR},
       enable_date = #{enableDate,jdbcType=CHAR},
       unable_date = #{unableDate,jdbcType=CHAR},
-      over_flag = #{overFlag,jdbcType=BIT},
-      active_flag = #{activeFlag,jdbcType=BIT},
+      over_flag = #{overFlag,jdbcType=INTEGER},
+      active_flag = #{activeFlag,jdbcType=INTEGER},
       create_time = #{createTime,jdbcType=TIMESTAMP},
       update_time = #{updateTime,jdbcType=TIMESTAMP}
     where id = #{id,jdbcType=BIGINT}

@@ -3,10 +3,7 @@ package com.dream.pay.voucher.service.daycut.impl;
 import com.dream.pay.voucher.common.enums.DayCutTaskList;
 import com.dream.pay.voucher.service.daycut.DayCutTaskFactory;
 import com.dream.pay.voucher.service.daycut.core.DayCutTask;
-import com.dream.pay.voucher.service.daycut.task.AccountBalanceSummaryTask;
-import com.dream.pay.voucher.service.daycut.task.DebtAndCreditSummaryTask;
-import com.dream.pay.voucher.service.daycut.task.EndDayCutTask;
-import com.dream.pay.voucher.service.daycut.task.StartDayCutTask;
+import com.dream.pay.voucher.service.daycut.task.*;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
@@ -27,12 +24,14 @@ public class DayCutTaskFactoryImpl implements DayCutTaskFactory {
     @Resource
     StartDayCutTask startDayCutTask;
     @Resource
-    DebtAndCreditSummaryTask debtAndCreditSummaryTask;
+    DebtAndCreditSummaryTask debitAndCreditSummaryTask;
     @Resource
-    AccountBalanceSummaryTask acctBalanceSummaryTask;
+    AccountBalanceSummaryTask accountBalanceSummaryTask;
+    @Resource
+    SubjectAmountSummaryTask subjectAmountSummaryTask;
+    @Resource
+    DebitAndCreditCheckTask debitAndCreditCheckTask;
     //    @Resource
-//    DebtAndCreditCheckTask debtAndCreditCheckTask;
-//    @Resource
 //    SubAcctAmountCheckTask subAcctAmountCheckTask;
 //    @Resource
 //    SubjectAmountCheckTask subjectAmountCheckTask;
@@ -51,24 +50,25 @@ public class DayCutTaskFactoryImpl implements DayCutTaskFactory {
         }
 
         //借贷发生额汇总任务
-        if (taskId == DayCutTaskList.DEBT_AND_CREDIT_SUMMARY_TASK.getId()) {
-            return debtAndCreditSummaryTask;
+        if (taskId == DayCutTaskList.DEBIT_AND_CREDIT_SUMMARY_TASK.getId()) {
+            return debitAndCreditSummaryTask;
         }
 
         //内部户余额汇总任务
-        if (taskId == DayCutTaskList.INNER_ACCT_BALANCE_SUMMARY_TASK.getId()) {
-            return acctBalanceSummaryTask;
+        if (taskId == DayCutTaskList.INNER_ACCOUNT_BALANCE_SUMMARY_TASK.getId()) {
+            return accountBalanceSummaryTask;
+        }
+        if (taskId == DayCutTaskList.SUBJECT_AMOUNT_SUMMARY_TASK.getId()) {
+            return subjectAmountSummaryTask;
         }
 //
-//        //借贷试算平衡任务
-//        if (taskId == DayCutTaskList.DEBT_AND_CREDIT_CHECK_TASK.getId()) {
-//            return debtAndCreditCheckTask;
-//        }
+        //借贷试算平衡任务
+        if (taskId == DayCutTaskList.DEBIT_AND_CREDIT_CHECK_TASK.getId()) {
+            return debitAndCreditCheckTask;
+        }
 //
 //        //
-//        if (taskId == DayCutTaskList.SUBJECT_AMOUNT_SUMMARY_TASK.getId()) {
-//            return subjectAmountSummaryTask;
-//        }
+
 //
 //        //分户发生额试算平衡
 //        if (taskId == DayCutTaskList.SUB_ACCT_AMOUNT_CHECK_TASK.getId()) {

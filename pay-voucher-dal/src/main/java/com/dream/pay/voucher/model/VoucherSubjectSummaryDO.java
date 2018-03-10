@@ -17,7 +17,7 @@ public class VoucherSubjectSummaryDO {
 
     private String accountNo;
 
-    private Boolean innerFlag;
+    private Integer innerFlag;
 
     private String subjectCode;
 

@@ -32,11 +32,11 @@ public class DebtAndCreditSummaryTask implements DayCutTask {
     /**
      * 任务ID
      */
-    private static final int TASK_ID = DayCutTaskList.DEBT_AND_CREDIT_SUMMARY_TASK.getId();
+    private static final int TASK_ID = DayCutTaskList.DEBIT_AND_CREDIT_SUMMARY_TASK.getId();
     /**
      * 任务名称
      */
-    private static final String TASK_NAME = DayCutTaskList.DEBT_AND_CREDIT_SUMMARY_TASK.getName();
+    private static final String TASK_NAME = DayCutTaskList.DEBIT_AND_CREDIT_SUMMARY_TASK.getName();
 
     private static final int PAGE_SIZE = 200;
 

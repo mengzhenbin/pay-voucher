@@ -17,11 +17,11 @@ public class VoucherTotalSummaryDO {
 
     private String subjectName;
 
-    private Byte subjectLevel;
+    private Integer subjectLevel;
 
     private String parentSubjectCode;
 
-    private Boolean zeroflag;
+    private Integer zeroFlag;
 
     private String voucherDate;
 

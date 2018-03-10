@@ -12,10 +12,17 @@ public interface VoucherCoreComponent {
 
     /**
      * 获取会计日期
-     *
-     * @return
      */
-    public String getVoucherDate();
+    String getVoucherDate();
 
+    /**
+     * 设置下一会计日期
+     */
     void setNextVoucherDate();
+
+    /**
+     * 登记错误日志
+     */
+    void regErrorLog(String accountNo, int errType, String errCode, String errSrc, String errDesc);
+
 }

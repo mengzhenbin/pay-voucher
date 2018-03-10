@@ -6,12 +6,12 @@
       <idArg column="id" jdbcType="BIGINT" javaType="java.lang.Long" />
       <arg column="voucher_code" jdbcType="VARCHAR" javaType="java.lang.String" />
       <arg column="channel_code" jdbcType="VARCHAR" javaType="java.lang.String" />
-      <arg column="config_type" jdbcType="BIT" javaType="java.lang.Boolean" />
+      <arg column="config_type" jdbcType="INTEGER" javaType="java.lang.Integer" />
       <arg column="debit_subject" jdbcType="VARCHAR" javaType="java.lang.String" />
       <arg column="debit_account" jdbcType="VARCHAR" javaType="java.lang.String" />
       <arg column="credit_subject" jdbcType="VARCHAR" javaType="java.lang.String" />
       <arg column="credit_account" jdbcType="VARCHAR" javaType="java.lang.String" />
-      <arg column="able_flag" jdbcType="BIT" javaType="java.lang.Boolean" />
+      <arg column="able_flag" jdbcType="INTEGER" javaType="java.lang.Integer" />
       <arg column="remark" jdbcType="VARCHAR" javaType="java.lang.String" />
       <arg column="create_time" jdbcType="TIMESTAMP" javaType="java.util.Date" />
       <arg column="update_time" jdbcType="TIMESTAMP" javaType="java.util.Date" />
@@ -38,8 +38,8 @@
       remark, create_time, update_time
       )
     values (#{id,jdbcType=BIGINT}, #{voucherCode,jdbcType=VARCHAR}, #{channelCode,jdbcType=VARCHAR}, 
-      #{configType,jdbcType=BIT}, #{debitSubject,jdbcType=VARCHAR}, #{debitAccount,jdbcType=VARCHAR}, 
-      #{creditSubject,jdbcType=VARCHAR}, #{creditAccount,jdbcType=VARCHAR}, #{ableFlag,jdbcType=BIT}, 
+      #{configType,jdbcType=INTEGER}, #{debitSubject,jdbcType=VARCHAR}, #{debitAccount,jdbcType=VARCHAR},
+      #{creditSubject,jdbcType=VARCHAR}, #{creditAccount,jdbcType=VARCHAR}, #{ableFlag,jdbcType=INTEGER},
       #{remark,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}
       )
   </insert>
@@ -94,7 +94,7 @@
         #{channelCode,jdbcType=VARCHAR},
       </if>
       <if test="configType != null" >
-        #{configType,jdbcType=BIT},
+        #{configType,jdbcType=INTEGER},
       </if>
       <if test="debitSubject != null" >
         #{debitSubject,jdbcType=VARCHAR},
@@ -109,7 +109,7 @@
         #{creditAccount,jdbcType=VARCHAR},
       </if>
       <if test="ableFlag != null" >
-        #{ableFlag,jdbcType=BIT},
+        #{ableFlag,jdbcType=INTEGER},
       </if>
       <if test="remark != null" >
         #{remark,jdbcType=VARCHAR},
@@ -132,7 +132,7 @@
         channel_code = #{channelCode,jdbcType=VARCHAR},
       </if>
       <if test="configType != null" >
-        config_type = #{configType,jdbcType=BIT},
+        config_type = #{configType,jdbcType=INTEGER},
       </if>
       <if test="debitSubject != null" >
         debit_subject = #{debitSubject,jdbcType=VARCHAR},
@@ -147,7 +147,7 @@
         credit_account = #{creditAccount,jdbcType=VARCHAR},
       </if>
       <if test="ableFlag != null" >
-        able_flag = #{ableFlag,jdbcType=BIT},
+        able_flag = #{ableFlag,jdbcType=INTEGER},
       </if>
       <if test="remark != null" >
         remark = #{remark,jdbcType=VARCHAR},
@@ -165,12 +165,12 @@
     update voucher_record_config
     set voucher_code = #{voucherCode,jdbcType=VARCHAR},
       channel_code = #{channelCode,jdbcType=VARCHAR},
-      config_type = #{configType,jdbcType=BIT},
+      config_type = #{configType,jdbcType=INTEGER},
       debit_subject = #{debitSubject,jdbcType=VARCHAR},
       debit_account = #{debitAccount,jdbcType=VARCHAR},
       credit_subject = #{creditSubject,jdbcType=VARCHAR},
       credit_account = #{creditAccount,jdbcType=VARCHAR},
-      able_flag = #{ableFlag,jdbcType=BIT},
+      able_flag = #{ableFlag,jdbcType=INTEGER},
       remark = #{remark,jdbcType=VARCHAR},
       create_time = #{createTime,jdbcType=TIMESTAMP},
       update_time = #{updateTime,jdbcType=TIMESTAMP}

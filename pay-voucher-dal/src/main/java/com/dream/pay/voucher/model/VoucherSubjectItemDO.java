@@ -15,9 +15,9 @@ public class VoucherSubjectItemDO {
 
     private String subjectCode;
 
-    private Boolean subjectType;
+    private Integer subjectType;
 
-    private Boolean subjectLevel;
+    private Integer subjectLevel;
 
     private String subjectName;
 
@@ -31,9 +31,9 @@ public class VoucherSubjectItemDO {
 
     private String unableDate;
 
-    private Boolean overFlag;
+    private Integer overFlag;
 
-    private Boolean activeFlag;
+    private Integer activeFlag;
 
     private Date createTime;
 

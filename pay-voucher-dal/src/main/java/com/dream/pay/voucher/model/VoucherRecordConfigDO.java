@@ -17,7 +17,7 @@ public class VoucherRecordConfigDO {
 
     private String channelCode;
 
-    private Boolean configType;
+    private Integer configType;
 
     private String debitSubject;
 
@@ -27,7 +27,7 @@ public class VoucherRecordConfigDO {
 
     private String creditAccount;
 
-    private Boolean ableFlag;
+    private Integer ableFlag;
 
     private String remark;
 

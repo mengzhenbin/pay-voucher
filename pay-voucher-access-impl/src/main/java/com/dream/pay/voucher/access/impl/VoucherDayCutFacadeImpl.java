@@ -35,7 +35,7 @@ public class VoucherDayCutFacadeImpl implements VoucherDayCutFacade {
             try {
                 dayCutTaskSchedulerImpl.run(voucherCoreComponent.getVoucherDate());
             } catch (Exception e) {
-                log.error("会计日切任务处理异常", e);
+                log.error("会计日切任务处理发生异常", e);
             }
         });
         log.info("会计日切任务处理结束");
